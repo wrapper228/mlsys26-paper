@@ -1,0 +1,55 @@
+% MLSys 2025 paper skeleton (initial)
+\documentclass{article}
+
+% Recommended packages
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs}
+
+% MLSys style
+\usepackage{mlsys2025}
+
+% Running title (short)
+\mlsystitlerunning{Embedding Norm Growth in Two-Tower Models}
+
+\begin{document}
+
+\twocolumn[
+\mlsystitle{Embedding Norm Growth under Cosine Objectives in Two-Tower Models}
+
+% Keywords are optional
+\mlsyskeywords{Representation learning, Two-tower models, Embedding norms}
+
+\vspace{0.1in}
+\begin{abstract}
+We present observations and analysis of embedding norm growth in two-tower models trained with cosine-based objectives. We outline hypotheses, empirical evidence, and implications for retrieval quality, and discuss mitigation strategies.
+\end{abstract}
+]
+
+% Author and affiliation footnote (auto-handled by style in review mode)
+\printAffiliationsAndNotice{\mlsysEqualContribution}
+
+\input{sections/introduction}
+
+\section{Background}
+We briefly review contrastive training with in-batch negatives (e.g., InfoNCE / full softmax) and cosine similarity objectives.
+
+\section{Analysis of norm growth}
+We formalize the conditions under which embedding norms can encode popularity bias despite cosine normalization at scoring time.
+
+\section{Mitigations}
+We outline practical strategies and trade-offs.
+
+\section{Conclusion}
+We summarize findings and highlight open questions.
+
+% References
+\bibliography{references}
+\bibliographystyle{mlsys2025}
+
+\appendix
+\section{Additional material}
+Supplementary analysis will be added in subsequent iterations.
+
+\end{document}
