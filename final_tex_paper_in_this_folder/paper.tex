@@ -1,4 +1,4 @@
-% MLSys 2025 paper skeleton (initial)
+% MLSys 2025 paper skeleton (reset)
 \documentclass{article}
 
 % Recommended packages
@@ -6,9 +6,6 @@
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{amsmath,amssymb}
-\usepackage[T2A]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[russian,english]{babel}
 \usepackage{booktabs}
 
 % MLSys style
@@ -25,9 +22,9 @@
 % Keywords are optional
 \mlsyskeywords{Representation learning, Two-tower models, Embedding norms}
 
-\vspace{0.1in}
+\vskip 0.1in
 \begin{abstract}
-We present observations and analysis of embedding norm growth in two-tower models trained with cosine-based objectives. We outline hypotheses, empirical evidence, and implications for retrieval quality, and discuss mitigation strategies.
+Two-tower models trained with cosine-based objectives are widely used in retrieval, yet we observe a systematic growth of item embedding norms that correlates with item popularity. Building on a first-order analysis of SGD updates, we identify architectural and optimization conditions under which the update to an embedding deviates from the cosine-gradient direction and accumulates components that increase its norm. We provide a simple unifying formula that explains when norm growth emerges, and discuss its implications for ranking when dot-product scoring is used. We outline practical mitigations, including architectural choices, explicit normalization, and alternative scoring strategies. Our analysis frames popularity-driven norm growth as an optimization artifact rather than a purely data-driven effect, guiding principled remedies for large-scale retrieval systems.
 \end{abstract}
 ]
 
@@ -35,18 +32,14 @@ We present observations and analysis of embedding norm growth in two-tower model
 \printAffiliationsAndNotice{\mlsysEqualContribution}
 
 \input{sections/introduction}
-
 \input{sections/background}
-
+\input{sections/related_work}
 \input{sections/one_formula}
-
 \input{sections/analysis}
-
-\section{Mitigations}
-Мы обсуждаем стратегии: явное нормирование эмбеддингов при обучении/инференсе, изменение скора (косинус вместо скалярного произведения), архитектурные ограничения, регуляризацию норм и балансировку данных.
-
+\input{sections/mitigations}
 \input{sections/experiments}
-
+\input{sections/discussion}
+\input{sections/limitations}
 \input{sections/conclusion}
 
 % References
