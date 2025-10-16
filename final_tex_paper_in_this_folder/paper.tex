@@ -40,18 +40,20 @@ We present observations and analysis of embedding norm growth in two-tower model
 
 \input{sections/one_formula}
 
-\section{Mitigations}
-We outline practical strategies and trade-offs.
+\input{sections/analysis}
 
-\section{Conclusion}
-We summarize findings and highlight open questions.
+\section{Mitigations}
+Мы обсуждаем стратегии: явное нормирование эмбеддингов при обучении/инференсе, изменение скора (косинус вместо скалярного произведения), архитектурные ограничения, регуляризацию норм и балансировку данных.
+
+\input{sections/experiments}
+
+\input{sections/conclusion}
 
 % References
 \bibliography{references}
 \bibliographystyle{mlsys2025}
 
 \appendix
-\section{Additional material}
-Supplementary analysis will be added in subsequent iterations.
+\input{sections/appendix}
 
 \end{document}
