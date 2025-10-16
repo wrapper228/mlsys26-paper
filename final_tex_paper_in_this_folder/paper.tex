@@ -5,6 +5,10 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{subfigure}
+\usepackage{amsmath,amssymb}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian,english]{babel}
 \usepackage{booktabs}
 
 % MLSys style
@@ -32,11 +36,9 @@ We present observations and analysis of embedding norm growth in two-tower model
 
 \input{sections/introduction}
 
-\section{Background}
-We briefly review contrastive training with in-batch negatives (e.g., InfoNCE / full softmax) and cosine similarity objectives.
+\input{sections/background}
 
-\section{Analysis of norm growth}
-We formalize the conditions under which embedding norms can encode popularity bias despite cosine normalization at scoring time.
+\input{sections/one_formula}
 
 \section{Mitigations}
 We outline practical strategies and trade-offs.
