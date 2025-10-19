@@ -13,25 +13,25 @@ Training proceeds by backpropagation. For a fixed encoder (left or right), I use
 
 The relations are
 \begin{align}
-g_j &= \frac{\partial \mathcal{L}}{\partial q_j}, \tag{1}\\
-J_j &= \frac{\partial q_j}{\partial \theta}. \tag{2}
+g_j &= \frac{\partial \mathcal{L}}{\partial q_j},\\
+J_j &= \frac{\partial q_j}{\partial \theta}.
 \end{align}
 
 It follows that the gradient of the loss w.r.t. the encoder parameters is
 \begin{align}
 g_{\theta} &= \sum_{j} \frac{\partial q_j}{\partial \theta}\, \frac{\partial \mathcal{L}}{\partial q_j}
-= \sum_{j} J_{j}^{\!\top}\, g_{j}. \tag{3}
+= \sum_{j} J_{j}^{\!\top}\, g_{j}.
 \end{align}
 
 Therefore, a single SGD step on this batch yields
 \begin{align}
 \Delta \theta &= -\eta\,g_{\theta}
-= -\eta \sum_{j} J_{j}^{\!\top}\, g_{j}, \tag{4}
+= -\eta \sum_{j} J_{j}^{\!\top}\, g_{j},
 \end{align}
 where $\eta$ denotes the learning rate.
 
 To relate parameter updates to movements in representation space, I linearize the encoder around the current parameters and obtain
 \begin{align}
-\boxed{\; \Delta q_{i} = J_{i}\,\Delta\theta = -\eta \sum_{j} J_{i}\,J_{j}^{\!\top}\,g_{j} \;} \tag{5}
+\boxed{\; \Delta q_{i} = J_{i}\,\Delta\theta = -\eta \sum_{j} J_{i}\,J_{j}^{\!\top}\,g_{j} \;}
 \end{align}
 This formula serves as the point of departure for the following analysis.
