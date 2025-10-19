@@ -1,19 +1,15 @@
 \subsection{What Is a Parameter-Linear Encoder}
 
-I call an encoder \emph{parameter-linear} if its output Jacobian with respect to parameters does not depend on the parameters. For clarity of notation, let
-\( q_i := q(\theta, x_i) \) denote the encoder output on example $i$ and
-\( J_i := J(x_i) \) the Jacobian of the output with respect to $\theta$ evaluated at input $x_i$.
+For notation, let
+\( q(\theta, x_i) := q_i \) 
+denote the encoder output with parameters $\theta$ given input $x_i$ (e.g., categorical feature or feature vector for example $i$), and
+\( J(x_i) := J_i \) 
+the Jacobian $\partial q(\theta, x_i)/\partial\theta$.
 
-Under this definition the encoder output admits the representation
+The encoder is \emph{parameter-linear} if its output for any input example $i$ can be written in the exact linear form
 \begin{align}
-q(\theta, x_i) = J(x_i)\,\theta, \label{eq:param-linear-def}
+q(\theta, x_i) = J(x_i)\,\theta
 \end{align}
-that is, the matrix $J$ may depend on the input (and fixed hyperparameters) but not on $\theta$.
+where $J(x_i)$ does not depend on $\theta$ and is therefore constant over the parameter space.
 
-Consequently, $J_i$ is constant over the entire parameter space, and the relation from Section~2.1 becomes \emph{exact}:
-\begin{align}
-\Delta q_i = J_i\,\Delta\theta. \label{eq:exact-delta-q}
-\end{align}
-This identity will be used repeatedly in what follows to derive orthogonality and norm-growth properties.
-
-
+Consequently, if the encoder is parameter-linear, then $\Delta q_i = J_i\,\Delta\theta$ holds without approximation.
