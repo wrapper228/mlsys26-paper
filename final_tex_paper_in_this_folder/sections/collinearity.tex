@@ -1,0 +1,53 @@
+\subsection{Collinearity of Embedding Updates with the Output Gradient}
+
+Drawing on equation \eqref{eq:starting-formula}, I now characterize when the embedding displacement is collinear with the output gradient: 
+\begin{align}
+\Delta q_{i} \,=\, J_{i}\,\Delta\theta \,=\, -\eta\,\sum_{j} J_{i}\,J_{j}^{\!\top}\,g_{j} \label{eq:collinearity-master}
+\end{align}
+
+Collinearity of the loss gradient $g_i = \nabla_{q_i}\mathcal{L}$ with the embedding update $\Delta q_i$ arises when the pairwise Jacobian products satisfy the following operator conditions:
+\begin{description}
+\item[(i)] $J_{i}J_{j}^{\!\top}=0$ for $j\neq i$ (all non-$i$ terms vanish in the batch sum, thus other gradients $g_j$ do not affect $\Delta q_i$);
+\item[(ii)] $J_{i}J_{i}^{\!\top}=\alpha_i I_d$ for some scalar $\alpha_i$ ($J_{i}J_{i}^{\!\top}g_i=\alpha_i g_i$, i.e., the operator rescales but does not rotate $g_i$).
+\end{description}
+Under (i)–(ii) the sum in \eqref{eq:collinearity-master} reduces to
+\begin{align}
+\Delta q_i \,=\, -\eta\,\alpha_i\, g_i,
+\end{align}
+that is, the update is a scalar multiple of $g_i$.
+
+A concise way to view this requirement is parameter separability: \emph{each distinct input $x_i$ must own a non–shared parameter row} so that perturbations tied to other inputs do not enter $\Delta q_i$.
+
+\paragraph{Single embedding layer.}
+For a single embedding layer (Appendix~\ref{app:embed}),
+\begin{align}
+J_{i}J_{j}^{\!\top} \,=\, \begin{cases}
+I_d, & x_i = x_j, \\
+0, & \text{otherwise.}
+\end{cases} \label{eq:JJ-embed}
+\end{align}
+If $c_i$ denotes the number of occurrences of $x_i$ in the batch, substituting \eqref{eq:JJ-embed} into \eqref{eq:collinearity-master} yields
+\begin{align}
+\Delta q_i \,=\, -\eta\,c_i\,g_i.
+\end{align}
+Hence the update is strictly collinear with $g_i$.
+
+\paragraph{Single linear layer without bias.}
+For a single linear layer (Appendix~\ref{app:linear}),
+\begin{align}
+J_{i}J_{j}^{\!\top} \,=\, (x_i^{\!\top} x_j)\, I_d. \label{eq:JJ-linear}
+\end{align}
+Therefore,
+\begin{align}
+\Delta q_i \,=\, -\eta\,c_i\,\|x_i\|^2\,g_i -\; \eta\,\sum_{j\neq i}(x_i^{\!\top}x_j)\,g_j
+\end{align}
+If the distinct inputs are pairwise orthogonal (e.g., one-hot features or, more generally, $x_i^{\!\top}x_j=0$ for $i\neq j$), the cross-terms vanish and the self-terms aggregate over the $c_i$ occurrences of $x_i$ in the batch,
+\begin{align}
+\Delta q_i \,=\, -\eta\,c_i\,\|x_i\|^2\,g_i,
+\end{align}
+which is again collinear with $g_i$.
+
+These cases illustrate a general principle: whenever $J_{i}J_{j}^{\!\top}$ is diagonal in the sense of \(J_{i}J_{j}^{\!\top} = \alpha_{ij} I_d\) with $\alpha_{ij}=0$ for $j\neq i$, the embedding update aligns with the output gradient. In particular, with one-hot features (orthogonal inputs), a bias-free linear layer and an embedding lookup are equivalent mappings up to implementation (matrix multiplication versus table lookup).
+
+\paragraph{Beyond linear encoders.}\label{sec:beyond-linear}
+For encoders which are not parameter-linear, I am not aware of natural conditions under which (i) and (ii) hold, even when the first-order approximation $\Delta q_i \approx J_i\,\Delta\theta$ is accurate (e.g., under small learning rates). In practice, non-linearity perturbs $J_i$ in an input- and parameter-dependent way that breaks both the cross-term annihilation (i) and the isotropy (ii).

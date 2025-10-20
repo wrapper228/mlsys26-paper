@@ -1,4 +1,4 @@
-\subsection{One Formula that Underpins the Analysis}
+\subsection{One Equation that Underpins the Analysis}
 
 I consider a canonical two-tower architecture with disjoint parameter sets: a left encoder and a right encoder. Embedding learning in such systems is typically effected by moving the left output closer to or farther from the right output; for example, by objectives that minimize or maximize the dot product between a user embedding and an item embedding (the outputs of the left and right encoders).
 
@@ -34,4 +34,4 @@ To relate parameter updates to movements in representation space, I linearize th
 \begin{align}
 \boxed{\; \Delta q_{i} = J_{i}\,\Delta\theta = -\eta \sum_{j} J_{i}\,J_{j}^{\!\top}\,g_{j} \;}\label{eq:starting-formula}
 \end{align}
-This formula serves as the point of departure for the following analysis.
+This equation serves as the point of departure for the following analysis.
