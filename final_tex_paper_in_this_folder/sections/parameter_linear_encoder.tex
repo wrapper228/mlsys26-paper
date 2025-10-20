@@ -14,4 +14,6 @@ where $J(x_i)$ does not depend on $\theta$ and is therefore constant over the pa
 
 Consequently, if the encoder is parameter-linear, then equation \eqref{eq:starting-formula} holds without approximation.
 
-Examples are deferred to Appendix~\ref{app:encoders}: a single embedding layer (Appendix~\ref{app:embed}) and a single linear layer without bias (Appendix~\ref{app:linear}) are parameter-linear; by contrast, two consecutive linear layers without bias are not (Appendix~\ref{app:two-linear}).
+Examples are deferred to Appendix~\ref{app:encoders}: a single embedding layer (Appendix~\ref{app:embed}) and a single linear layer without bias (Appendix~\ref{app:linear}) are parameter-linear architectures.
+
+By contrast, encoder which consists of two consecutive linear layers without bias is the example of an architecture which is not parameter-linear (Appendix~\ref{app:two-linear}).

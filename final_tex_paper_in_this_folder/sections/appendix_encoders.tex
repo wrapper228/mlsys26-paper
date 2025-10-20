@@ -1,4 +1,4 @@
-\section{Parameter-Linear Encoder Examples}\label{app:encoders}
+\section{Encoder Examples: Parameter-Linear and Nonlinear}\label{app:encoders}
 
 \subsection{Encoder with a Single Embedding Layer}\label{app:embed}
 \textbf{Input:} $x_i = i \in \{1,\dots,N\}$ \;($x_i$ -- index of example $i$).
@@ -7,7 +7,7 @@
 
 \textbf{Output:} $q(\theta,x_i)=E_i\in\mathbb{R}^{d}$, \;$q_i = q(\theta,x_i)$.
 
-Let $m$ denote an output coordinate of $q$, and let $i'$ and $n'$ be arbitrary row/column indices with respect to which the derivative is taken (they range over all parameters). We also vectorize $\theta$ from an $N\times d$ matrix into a vector of length $N\!\cdot\! d$.
+Let $m$ denote an output coordinate of $q$, and let $i'$ and $n'$ be arbitrary row/column indices with respect to which the derivative is taken (they range over all parameters). I also vectorize $\theta$ from an $N\times d$ matrix into a vector of length $N\!\cdot\! d$.
 
 \textbf{Jacobian:}
 \begin{align}
@@ -32,7 +32,7 @@ Thus $J$ does not depend on $\theta$, and the encoder is parameter-linear.
 
 \textbf{Output:} $q(\theta,x_i)=W\,x_i\in\mathbb{R}^{d}$, \;$q_i=q(\theta,x_i)$.
 
-Let $m$ denote an output coordinate of $q_i$, and let $m'$ and $n'$ be arbitrary row/column indices with respect to which the derivative is taken (they range over all parameters). We also vectorize $\theta$ from a $d\!\times\!h$ matrix into a vector of length $d\!\cdot\!h$.
+Let $m$ denote an output coordinate of $q_i$, and let $m'$ and $n'$ be arbitrary row/column indices with respect to which the derivative is taken (they range over all parameters). I also vectorize $\theta$ from a $d\!\times\!h$ matrix into a vector of length $d\!\cdot\!h$.
 
 \textbf{Jacobian:}
 \begin{align}
@@ -49,10 +49,30 @@ J_i \,=\, \operatorname{diag}\!\bigl(\underbrace{x_i^{\!\top},\, x_i^{\!\top},\,
 Hence $J$ depends on the input $x_i$ but not on $\theta$, so this encoder is parameter-linear. If a bias is present, append an identity block on the right.
 
 \subsection{Encoder with Two Consecutive Linear Layers (No Bias)}\label{app:two-linear}
-Let $z_i = A\,x_i$ and $q_i = B\,z_i$ with $A\in\mathbb{R}^{d_1\times h}$, $B\in\mathbb{R}^{d_2\times d_1}$. Then
+\textbf{Input:} $x_i = (x_{i,1},\dots,x_{i,h})^{\!\top} \in \mathbb{R}^{h}$ \;($x_i$ -- feature vector of example $i$).
+
+\textbf{Parameters:} $A\in\mathbb{R}^{d_1\times h}$, $B\in\mathbb{R}^{d_2\times d_1}$, \;$\theta=\{A,B\}$, \;$\theta^{(A)}_{r,s}=A_{r,s}$, \;$\theta^{(B)}_{m,n}=B_{m,n}$ \;(here $r$ is a “hidden” coordinate, $m$ an output coordinate).
+
+\textbf{Output:} $z_i = A\,x_i \in \mathbb{R}^{d_1}$, \; $q_i = q(\theta,x_i) = B\,z_i \in \mathbb{R}^{d_2}$.
+
+Let $m$ denote an output coordinate of $q_i$. Let $m',n'$ be arbitrary row/column indices in $B$, and $r',s'$ indices in $A$.
+
+\textbf{W.r.t. $B$:}
 \begin{align}
-\frac{\partial q_{i,m}}{\partial B_{m',n'}} &= \begin{cases} z_{i,n'}, & m'=m, \\ 0, & \text{otherwise,} \end{cases} \\
-\frac{\partial q_{i,m}}{\partial A_{r',s'}} &= B_{m,r'}\,x_{i,s'}.
+\frac{\partial q_{i,m}}{\partial B_{m',n'}} 
+= \begin{cases} z_{i,n'}, & m' = m, \\ 0, & \text{otherwise.} \end{cases}
 \end{align}
-Thus $J_i = [\, J^{(B)}_i \mid J^{(A)}_i \,]$ depends on $B$ (through $B_{:,r'}$) and hence on $\theta$, so the encoder is \emph{not} parameter-linear.
+
+\textbf{W.r.t. $A$:}
+\begin{align}
+\frac{\partial q_{i,m}}{\partial A_{r',s'}} = B_{m,r'}\,x_{i,s'} .
+\end{align}
+
+Therefore,
+\begin{align}
+J_i = \bigl[\, J^{(B)}_i \;\big|\; J^{(A)}_i \bigr],
+\end{align}
+where $J^{(B)}_i\in\mathbb{R}^{d_2\times(d_2 d_1)}$ has, in each of the $d_2$ blocks of width $d_1$, the row $z_i^{\!\top}$, and $J^{(A)}_i\in\mathbb{R}^{d_2\times(d_1 h)}$ consists of $d_1 h$ columns of the form $B_{:,r'}\,x_{i,s'}$.
+
+Consequently, $J_i$ depends on the parameters (through $B$), so this encoder is \emph{not} parameter-linear. Intuitively, although the encoder is linear in the \emph{input}, changing a parameter in the first linear layer affects the output through a multiplication by the second layer, which makes the Jacobian parameter-dependent; hence strict parameter-linearity fails.
 
