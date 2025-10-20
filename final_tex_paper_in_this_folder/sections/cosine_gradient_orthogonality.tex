@@ -8,7 +8,7 @@ And its gradient with respect to $q$ is
 \begin{align}
 \nabla_q\mathcal L \,=\, \sum_{s=1}^{r} \frac{\partial F}{\partial \cos(q,k_s)}\, \nabla_q \cos(q,k_s). \label{eq:grad-cos-loss}
 \end{align}
-Here the derivative of the loss with respect to a cosine is a scalar. We can say that the loss gradient with respect to $q$ is orthogonal to $q$ if
+Here the derivative of the loss with respect to a cosine is a scalar. I can say that the loss gradient with respect to $q$ is orthogonal to $q$ if
 \begin{align}
 \langle q,\nabla_q\mathcal L \rangle \,=\, 0.
 \end{align}
@@ -20,7 +20,7 @@ Therefore,
 &= 0.
 \end{aligned}
 \end{equation}
-Here we used lemma in Appendix~\ref{app:cos-orth-lemma}, which states that $\langle q, \nabla_q \cos(q,\ast) \rangle = 0$.
+Here I used lemma in Appendix~\ref{app:cos-orth-lemma}, which states that $\langle q, \nabla_q \cos(q,\ast) \rangle = 0$.
 Hence $q_i \perp g_i$ for any cosine loss. Consequently, if $\Delta q_i \parallel g_i$, then $q_i \perp \Delta q_i$: during training the embedding moves orthogonally:
 
 \begin{figure}[!htbp]
