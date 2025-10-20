@@ -1,4 +1,4 @@
-\subsection{Collinearity of Embedding Updates with the Output Gradient}
+\subsection{For Some Linear Encoders, the Embedding Update Is Collinear with the Loss Gradient}
 
 Drawing on equation \eqref{eq:starting-formula}, I now characterize when the embedding displacement is collinear with the output gradient: 
 \begin{align}
@@ -50,4 +50,4 @@ which is again collinear with $g_i$.
 These cases illustrate a general principle: whenever $J_{i}J_{j}^{\!\top}$ is diagonal in the sense of \(J_{i}J_{j}^{\!\top} = \alpha_{ij} I_d\) with $\alpha_{ij}=0$ for $j\neq i$, the embedding update aligns with the output gradient. In particular, with one-hot features (orthogonal inputs), a bias-free linear layer and an embedding lookup are equivalent mappings up to implementation (matrix multiplication versus table lookup).
 
 \paragraph{Beyond linear encoders.}\label{sec:beyond-linear}
-For encoders which are not parameter-linear, I am not aware of natural conditions under which (i) and (ii) hold, even when the first-order approximation $\Delta q_i \approx J_i\,\Delta\theta$ is accurate (e.g., under small learning rates). In practice, non-linearity perturbs $J_i$ in an input- and parameter-dependent way that breaks both the cross-term annihilation (i) and the isotropy (ii).
+For encoders which are not parameter-linear, I am not aware of natural conditions under which (i) and (ii) hold, even when the first-order approximation $\Delta q_i \approx J_i\,\Delta\theta$ is accurate (e.g., under small learning rates). In practice, non-linearity perturbs $J_i$ in an input- and parameter-dependent way that breaks both the cross-term annihilation (i) and the isotropy (ii). See Figure 1 for a mind map of conditions for collinearity.
