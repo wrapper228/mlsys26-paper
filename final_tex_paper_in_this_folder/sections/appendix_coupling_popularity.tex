@@ -7,15 +7,22 @@ We aim to show that, after $T$ training batches, the embedding norm of item $i$ 
 \end{equation}
 We employ the coupling method from probability theory (see "Modern Discrete Probability: An Essential Toolkit").
 
-\paragraph{1) Two runs on the same randomness (fix the random outcome of batch generation).}
-Run training twice; the runs differ only in the sampling probability of item $i$: one uses $p_i$, the other uses $p_i' > p_i$. In every batch $b$ and every slot $j$ draw the same uniform variable $U_{b,j} \sim \mathrm{Unif}(0, 1)$. In the run with parameter $p_i$ we place $i$ in slot $(b, j)$ if $U_{b,j} \le p_i$; in the run with $p_i'$ we place $i$ if $U_{b,j} \le p_i'$. Hence, for every slot,
+\paragraph{1) Two runs on the same randomness (we fixed the random outcome of batch generation).}
+Run training twice, differing only in the sampling probability of item $i$: $p_i' < p_i''$. At each step $t$ and for every slot of the batch draw the same random number $U \sim \mathrm{Uniform}(0,1)$:
+\begin{itemize}
+  \item in the run with parameter $p$, place $i$ into the slot if $U \le p_i$;
+  \item otherwise place the same non-$i$ item in both runs (chosen using the same random generator).
+\end{itemize}
+Then, for the batch collected at step $t$,
 \begin{equation}
-\mathbf 1\{U_{b,j} \le p_i\} \le \mathbf 1\{U_{b,j} \le p_i'\}.
+\begin{aligned}
+&\mathbf{Indicator}\{\text{item } i \text{ appears at least once under } p_i''\} \\
+&\;\ge\; \\
+&\mathbf{Indicator}\{\text{item } i \text{ appears at least once under } p_i'\}.
+\end{aligned}
 \end{equation}
-Therefore the indicator that $i$ appears at least once in batch $b$ in the $p_i'$-run dominates that in the $p_i$-run:
-\begin{equation}
-\mathbf 1\{\exists j : U_{b,j} \le p_i\} \le \mathbf 1\{\exists j : U_{b,j} \le p_i'\}.
-\end{equation}
+Thus, with the larger $p_i$ the number of appearances of $i$ is never smaller.
+
 Look for X attachment for extra comments on "Note on distributions".
 
 \paragraph{2) What a single occurrence does to the norm.}
