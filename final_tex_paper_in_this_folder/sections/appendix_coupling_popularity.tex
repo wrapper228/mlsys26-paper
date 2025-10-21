@@ -1,0 +1,6 @@
+\section{Popularity Dependence via Coupling}
+\label{app:popularity-dependence}
+
+Consider two training processes that are identical except that in one process the item $i$ is sampled with probability $p_i$ and in the other with a higher probability $p_i' > p_i$. Couple the draws so that every occurrence in the lower-probability process is matched in the higher-probability process. Under orthogonal updates (Section~2), each matched occurrence yields an identical norm increment by Eq.~\eqref{eq:pythagoras-increment}, and the higher-probability process accrues weakly more such increments in expectation. Therefore the expected norm after $T$ steps is nondecreasing in $p_i$.
+
+

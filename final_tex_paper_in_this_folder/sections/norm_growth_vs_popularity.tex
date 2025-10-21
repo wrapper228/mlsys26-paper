@@ -1,0 +1,19 @@
+\section{Analysis of Embedding-Norm Growth as a Function of Popularity}
+
+Throughout this section I assume the four conditions from Section~2 hold (SGD without momentum/regularization; parameter-linear encoder; non-shared parameter rows; cosine-loss gradient orthogonal to the output). Under these assumptions the embedding moves orthogonally at each update. By the Pythagorean theorem,
+\begin{equation}
+\label{eq:pythagoras-increment}
+\bigl\|q_i^{(t+1)}\bigr\|^{2} - \bigl\|q_i^{(t)}\bigr\|^{2} \;=\; \bigl\|\Delta q_i^{(t)}\bigr\|^{2}.
+\end{equation}
+
+Before analyzing the dependence on popularity, I state a claim that will be used later and provide its proof in the appendix:
+\begin{quote}
+\textbf{Claim.} The larger the embedding norm, the slower it grows under a cosine-based loss.
+\end{quote}
+The proof (Appendix~\ref{app:cosine-growth-rate}) derives an explicit expression for the norm of the gradient and shows its inverse dependence on the current norm of $q$.
+
+Finally, I analyze the dependence of the embedding-norm growth on item popularity. Using a coupling argument from probability (see Appendix~\ref{app:popularity-dependence}), I show that the expected norm change over a trajectory of $T$ mini-batches is a nondecreasing function of the sampling probability (popularity) $p_i$ of the item.
+
+\paragraph{Takeaway.} Under the four conditions above, norm growth is (i) inversely affected by the current magnitude of the embedding (cosine-driven slow-down) and (ii) nondecreasing in item popularity. Together, these effects provide an analytic mechanism for popularity bias in two-tower systems.
+
+
