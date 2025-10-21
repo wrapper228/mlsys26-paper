@@ -60,15 +60,22 @@ s_{\mathrm{new}} \,=\, \Phi(s) \,=\, s + \frac{c}{s} \;\ge\; 2\sqrt{c} \;\ge\; \
 \end{equation}
 thus $s_{\mathrm{new}} \ge \sqrt{c}$. On the next step, if $c$ does not change much, the monotonicity of $\Phi$ persists: $\Phi'(s) \ge 0$. Hence $\Phi$ cannot make the "large" vector smaller than the "small" one under the same event ("item $i$ appeared at least once in the collected batch"). The fact that $c$ does not grow too fast at each step is proved in attachment Z.
 
-\paragraph{4) Induction over steps: why larger $p_i$ implies no smaller outcome.}
-Synchronize randomness as in item~1 and iterate over batches $t$:
+\paragraph{4) Induction over steps: why "larger $p_i$" implies "no smaller outcome".}
+Synchronize randomness as in part~1 and iterate over steps $t$:
 \begin{itemize}
-  \item if $i$ is absent in both runs, both states stay unchanged;
-  \item if $i$ appears only in the $p_i'$-run, its state increases there while the $p_i$-run stays put;
-  \item if $i$ appears in both runs, the nondecreasing $\Phi$ preserves the order (Look for Y attachment for extra comments on "Note on batch difference").
+  \item if $i$ is absent in both runs, both $s$ stay unchanged;
+  \item if $i$ appears only in the $p_i''$-run, its $s$ increases there by $\Delta(\cdot) \ge 0$, while in the $p_i'$-run it does not — hence the order preserves;
+  \item if $i$ appears in both runs, the nondecreasing $\Phi(s)$ preserves the order $s'' \ge s'$ (see the note Y on batch difference).
 \end{itemize}
-By induction on $t$ (almost surely on the coupled randomness), we obtain $s^{(T)}_{p_i} \le s^{(T)}_{p_i'}$. Taking expectations yields the desired monotonicity:
+By induction in $t$ (almost surely on the same coupled randomness),
 \begin{equation}
-\boxed{\; \mathbb E\,\bigl\|q_i^{(T)}\bigr\| \text{ is nondecreasing in } p_i \; }.
+s^{(t)}_{p_i''} \;\ge\; s^{(t)}_{p_i'}.
+\end{equation}
+$\sqrt{\cdot}$ is monotone, hence
+\begin{equation}
+\mathbb E\,\bigl\|q_i^{(T)}\bigr\|_{p_i''} \;\ge\; \mathbb E\,\bigl\|q_i^{(T)}\bigr\|_{p_i'}.
+\end{equation}
+\begin{equation}
+\boxed{\bigl\|q_i^{(T)}\bigr\| \text{ doesn't decrease in avg. when } p_i \text{ is larger.} \, }
 \end{equation}
 Look for Y attachment for extra comments on "Note on batch difference".
