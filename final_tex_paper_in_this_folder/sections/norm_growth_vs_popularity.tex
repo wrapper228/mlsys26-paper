@@ -12,8 +12,8 @@ Before analyzing the dependence on popularity, I state a claim that will be used
 \end{quote}
 The proof (Appendix~\ref{app:cosine-growth-rate}) derives an explicit expression for the norm of the gradient and shows its inverse dependence on the current norm of $q$.
 
-Finally, I analyze the dependence of the embedding-norm growth on item popularity. Using a coupling argument from probability (see Appendix~\ref{app:popularity-dependence}), I show that the expected norm change over a trajectory of $T$ mini-batches is a nondecreasing function of the sampling probability (popularity) $p_i$ of the item.
+Finally, I analyze the dependence of the embedding-norm growth on item popularity. Using a coupling probabilistic technique (see Appendix~\ref{app:popularity-dependence}), I show that the expected norm change over a trajectory of $T$ batches is a nondecreasing function of the sampling probability (popularity) of the item.
 
-\paragraph{Takeaway.} Under the four conditions above, norm growth is (i) inversely affected by the current magnitude of the embedding (cosine-driven slow-down) and (ii) nondecreasing in item popularity. Together, these effects provide an analytic mechanism for popularity bias in two-tower systems.
+\paragraph{Takeaway.} <Плохо, этот абзац нужно будет в дальнейшем переписать.> Under the four conditions above, norm growth is (i) inversely affected by the current magnitude of the embedding (cosine-driven slow-down) and (ii) nondecreasing in item popularity. Together, these effects provide an analytic mechanism for popularity bias in two-tower systems.
 
 

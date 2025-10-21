@@ -1,6 +1,70 @@
 \section{Popularity Dependence via Coupling}
 \label{app:popularity-dependence}
 
-Consider two training processes that are identical except that in one process the item $i$ is sampled with probability $p_i$ and in the other with a higher probability $p_i' > p_i$. Couple the draws so that every occurrence in the lower-probability process is matched in the higher-probability process. Under orthogonal updates (Section~2), each matched occurrence yields an identical norm increment by Eq.~\eqref{eq:pythagoras-increment}, and the higher-probability process accrues weakly more such increments in expectation. Therefore the expected norm after $T$ steps is nondecreasing in $p_i$.
+We aim to show that, after $T$ training batches, the embedding norm of item $i$ is nondecreasing in its sampling probability $p_i$:
+\begin{equation}
+\mathbb E\,\bigl\|q_i^{(T)}\bigr\| \;\text{ is nondecreasing in }\; p_i.
+\end{equation}
+We employ the coupling method from probability theory (see "Modern Discrete Probability: An Essential Toolkit").
 
+\paragraph{1) Two runs on the same randomness (fix the random outcome of batch generation).}
+Run training twice; the runs differ only in the sampling probability of item $i$: one uses $p_i$, the other uses $p_i' > p_i$. In every batch $b$ and every slot $j$ draw the same uniform variable $U_{b,j} \sim \mathrm{Unif}(0, 1)$. In the run with parameter $p_i$ we place $i$ in slot $(b, j)$ if $U_{b,j} \le p_i$; in the run with $p_i'$ we place $i$ if $U_{b,j} \le p_i'$. Hence, for every slot,
+\begin{equation}
+\mathbf 1\{U_{b,j} \le p_i\} \le \mathbf 1\{U_{b,j} \le p_i'\}.
+\end{equation}
+Therefore the indicator that $i$ appears at least once in batch $b$ in the $p_i'$-run dominates that in the $p_i$-run:
+\begin{equation}
+\mathbf 1\{\exists j : U_{b,j} \le p_i\} \le \mathbf 1\{\exists j : U_{b,j} \le p_i'\}.
+\end{equation}
+Look for X attachment for extra comments on "Note on distributions".
 
+\paragraph{2) What a single occurrence does to the norm.}
+Let $s^{(t)} = \bigl\|q_i^{(t)}\bigr\|^2$. A one-step update satisfies
+\begin{equation}
+s^{(t+1)} = \begin{cases}
+s^{(t)}, & \text{if item $i$ does not occur in batch $t$,} \\
+s^{(t)} + \Delta\bigl(s^{(t)}\bigr), & \text{if item $i$ occurs at least once.}
+\end{cases}
+\end{equation}
+Under orthogonal updates, the Pythagorean formula gives
+\begin{equation}
+\label{eq:pythagoras-increment}
+\bigl\|q + \Delta q\bigr\|^2 \;=\; \|q\|^2 + \bigl\|\Delta q\bigr\|^2, \qquad \Rightarrow\; \Delta\bigl(s^{(t)}\bigr) = \bigl\|\Delta q_i^{(t)}\bigr\|^2 \ge 0.
+\end{equation}
+For cosine-based losses (the gradient with respect to $q$ is orthogonal to $q$), a typical dependence is
+\begin{equation}
+\Delta(s) \,=\, \frac{c}{s}, \qquad c>0, \qquad \text{see Appendix~\ref{app:cosine-growth-rate}}.
+\end{equation}
+Thus: the larger the norm, the smaller the increment, yet the increment remains strictly positive.
+
+\paragraph{3) Requirement: the step must not reverse the order.}
+For the final conclusion we need that, when $i$ occurs simultaneously in both runs, the mapping $\Phi(s) = s + \Delta(s)$ is nondecreasing:
+\begin{equation}
+s_1 \le s_2 \;\Rightarrow\; \Phi(s_1) \le \Phi(s_2).
+\end{equation}
+For $\Delta(s) = c/s$ we have
+\begin{equation}
+\Phi'(s) \,=\, 1 - \frac{c}{s^2} \;\ge\; 0 \quad \text{whenever } s \ge \sqrt{c}.
+\end{equation}
+Why do we quickly enter the region $s \ge \sqrt{c}$? By the arithmetic–geometric mean inequality (the arithmetic mean is at least the geometric mean),
+\begin{equation}
+s + \frac{c}{s} \;\ge\; 2\sqrt{c} \quad (c>0).
+\end{equation}
+Hence, after any single occurrence,
+\begin{equation}
+s_{\mathrm{new}} \,=\, s + \frac{c}{s} \;\ge\; 2\sqrt{c} \;\ge\; \sqrt{c},
+\end{equation}
+and from then on $\Phi$ is nondecreasing at every joint occurrence. That $c$ does not grow too fast at every step is proved in Z attachment.
+
+\paragraph{4) Induction over steps: why larger $p_i$ implies no smaller outcome.}
+Synchronize randomness as in item~1 and iterate over batches $t$:
+\begin{itemize}
+  \item if $i$ is absent in both runs, both states stay unchanged;
+  \item if $i$ appears only in the $p_i'$-run, its state increases there while the $p_i$-run stays put;
+  \item if $i$ appears in both runs, the nondecreasing $\Phi$ preserves the order (Look for Y attachment for extra comments on "Note on batch difference").
+\end{itemize}
+By induction on $t$ (almost surely on the coupled randomness), we obtain $s^{(T)}_{p_i} \le s^{(T)}_{p_i'}$. Taking expectations yields the desired monotonicity:
+\begin{equation}
+\boxed{\; \mathbb E\,\bigl\|q_i^{(T)}\bigr\| \text{ is nondecreasing in } p_i \; }.
+\end{equation}
+Look for Y attachment for extra comments on "Note on batch difference".
