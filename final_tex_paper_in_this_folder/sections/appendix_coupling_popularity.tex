@@ -26,23 +26,18 @@ Thus, with the larger $p_i$ the number of appearances of $i$ is never smaller.
 Look for X attachment for extra comments on "Note on distributions".
 
 \paragraph{2) What a single occurrence does to the norm.}
-Let $s^{(t)} = \bigl\|q_i^{(t)}\bigr\|^2$. A one-step update satisfies
+Let $s^{(t)} = \bigl\|q_i^{(t)}\bigr\|^2$. One-step update:
 \begin{equation}
 s^{(t+1)} = \begin{cases}
-s^{(t)}, & \text{if item $i$ does not occur in batch $t$,} \\
-s^{(t)} + \Delta\bigl(s^{(t)}\bigr), & \text{if item $i$ occurs at least once.}
+s^{(t)}, & \text{if $i$ does not occur,} \\
+s^{(t)} + \Delta\bigl(s^{(t)}\bigr), & \text{if $i$ does occur.}
 \end{cases}
 \end{equation}
-Under orthogonal updates, the Pythagorean formula gives
+where $\Delta(s) = \bigl\|\Delta q^{(t)}\bigr\|^2 \ge 0$. For the cosine loss (the gradient is orthogonal to $q$), the dependence is
 \begin{equation}
-\label{eq:pythagoras-increment}
-\bigl\|q + \Delta q\bigr\|^2 \;=\; \|q\|^2 + \bigl\|\Delta q\bigr\|^2, \qquad \Rightarrow\; \Delta\bigl(s^{(t)}\bigr) = \bigl\|\Delta q_i^{(t)}\bigr\|^2 \ge 0.
+\Delta(s) \,=\, \frac{c}{s}, \qquad \text{see attachment Z}.
 \end{equation}
-For cosine-based losses (the gradient with respect to $q$ is orthogonal to $q$), a typical dependence is
-\begin{equation}
-\Delta(s) \,=\, \frac{c}{s}, \qquad c>0, \qquad \text{see Appendix~\ref{app:cosine-growth-rate}}.
-\end{equation}
-Thus: the larger the norm, the smaller the increment, yet the increment remains strictly positive.
+Here $c > 0$: the larger the norm, the smaller the increment, yet the increment remains strictly positive.
 
 \paragraph{3) Requirement: the step must not reverse the order.}
 For the final conclusion we need that, when $i$ occurs simultaneously in both runs, the mapping $\Phi(s) = s + \Delta(s)$ is nondecreasing:
