@@ -21,7 +21,13 @@ Therefore,
 \end{aligned}
 \end{equation}
 Here I used lemma in Appendix~\ref{app:cos-orth-lemma}, which states that $\langle q, \nabla_q \cos(q,\ast) \rangle = 0$.
-Hence $q_i \perp g_i$ for any cosine loss. Consequently, if $\Delta q_i \parallel g_i$, then $q_i \perp \Delta q_i$: during training the embedding moves orthogonally:
+Hence $q_i \perp g_i$ for any cosine loss. Consequently, 
+\begin{equation}
+\begin{aligned}
+\textit{if } \Delta q_i \parallel g_i \textit{, then } q_i \perp \Delta q_i, \label{eq:ort-move-proof}
+\end{aligned}
+\end{equation}
+which implies that during training the embedding moves orthogonally:
 
 \begin{figure}[!htbp]
 \centering
