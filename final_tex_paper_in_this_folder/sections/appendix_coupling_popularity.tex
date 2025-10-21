@@ -40,23 +40,25 @@ where $\Delta(s) = \bigl\|\Delta q^{(t)}\bigr\|^2 \ge 0$. For the cosine loss (t
 Here $c > 0$: the larger the norm, the smaller the increment, yet the increment remains strictly positive.
 
 \paragraph{3) Requirement: the step must not reverse the order.}
-For the final conclusion we need that, when $i$ occurs simultaneously in both runs, the mapping $\Phi(s) = s + \Delta(s)$ is nondecreasing:
+For the final conclusion in the next item we need that, when $i$ appears simultaneously in both runs, the mapping $\Phi(s) = s + \Delta(s)$ is nondecreasing:
 \begin{equation}
 s_1 \le s_2 \;\Rightarrow\; \Phi(s_1) \le \Phi(s_2).
 \end{equation}
 For $\Delta(s) = c/s$ we have
 \begin{equation}
-\Phi'(s) \,=\, 1 - \frac{c}{s^2} \;\ge\; 0 \quad \text{whenever } s \ge \sqrt{c}.
+\Phi(s) \,=\, s + \frac{c}{s}, \qquad \Phi'(s) \,=\, 1 - \frac{c}{s^2} \;\ge\; 0 \quad \text{for } s \ge \sqrt{c}.
 \end{equation}
-Why do we quickly enter the region $s \ge \sqrt{c}$? By the arithmetic–geometric mean inequality (the arithmetic mean is at least the geometric mean),
+Here is why we quickly enter the region $s \ge \sqrt{c}$ : 
+
+The arithmetic mean of nonnegative numbers is at least the geometric mean:
 \begin{equation}
-s + \frac{c}{s} \;\ge\; 2\sqrt{c} \quad (c>0).
+s + \frac{c}{s} \;\ge\; 2\sqrt{c} \quad (s>0).
 \end{equation}
-Hence, after any single occurrence,
+Hence, after any single occurrence:
 \begin{equation}
-s_{\mathrm{new}} \,=\, s + \frac{c}{s} \;\ge\; 2\sqrt{c} \;\ge\; \sqrt{c},
+s_{\mathrm{new}} \,=\, \Phi(s) \,=\, s + \frac{c}{s} \;\ge\; 2\sqrt{c} \;\ge\; \sqrt{c} ,
 \end{equation}
-and from then on $\Phi$ is nondecreasing at every joint occurrence. That $c$ does not grow too fast at every step is proved in Z attachment.
+thus $s_{\mathrm{new}} \ge \sqrt{c}$. On the next step, if $c$ does not change much, the monotonicity of $\Phi$ persists: $\Phi'(s) \ge 0$. Hence $\Phi$ cannot make the "large" vector smaller than the "small" one under the same event ("item $i$ appeared at least once in the collected batch"). The fact that $c$ does not grow too fast at each step is proved in attachment Z.
 
 \paragraph{4) Induction over steps: why larger $p_i$ implies no smaller outcome.}
 Synchronize randomness as in item~1 and iterate over batches $t$:
