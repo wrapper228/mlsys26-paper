@@ -1,0 +1,31 @@
+\section{Note on distributions}
+\label{app:note-on-distributions}
+
+Let the base distribution for all items be $p$. For the set of non-$i$ items ($k\ne i$) define the residual distribution $\boldsymbol r$ obtained by removing item $i$ and renormalizing the remaining probabilities:
+\begin{equation}
+r_k \,=\, \frac{p_k}{1 - p_i} \qquad (k \ne i).
+\end{equation}
+
+Consider a single generation slot. We use a shared uniform random variable $U \sim \mathrm{Uniform}(0,1)$ and a categorical draw over non-$i$ items $Z \sim \mathrm{Cat}(\boldsymbol r)$:
+\begin{equation}
+X^{(p)} \,=\, \begin{cases}
+ i, & U \le p, \\
+ Z, & U > p.
+\end{cases}
+\end{equation}
+Therefore
+\begin{equation}
+\begin{aligned}
+\mathbb P^{(p)}\{X = i\} &= p, \\
+\mathbb P^{(p)}\{X = k\} &= (1 - p)\, r_k \quad (k \ne i).
+\end{aligned}
+\end{equation}
+In particular, for two values $p \in \{p'_i, p''_i\}$:
+\begin{equation}
+\begin{aligned}
+\mathbb P^{(p''_i)}\{X = k\} &= \gamma\, \mathbb P^{(p'_i)}\{X = k\}, \\
+\gamma &= \frac{1 - p''_i}{1 - p'_i}.
+\end{aligned}
+\end{equation}
+
+
