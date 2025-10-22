@@ -35,7 +35,7 @@ s^{(t)} + \Delta\bigl(s^{(t)}\bigr), & \text{if $i$ does occur.}
 \end{equation}
 where $\Delta(s) = \bigl\|\Delta q^{(t)}\bigr\|^2 \ge 0$. For the cosine loss (the gradient is orthogonal to $q$), the dependence is
 \begin{equation}
-\Delta(s) \,=\, \frac{c}{s}, \qquad \text{see attachment Z}.
+\Delta(s) \,=\, \frac{c}{s}, \qquad \text{see Appendix~\ref{app:note-on-c-variability}}.
 \end{equation}
 Here $c > 0$: the larger the norm, the smaller the increment, yet the increment remains strictly positive.
 
@@ -58,7 +58,7 @@ Hence, after any single occurrence:
 \begin{equation}
 s_{\mathrm{new}} \,=\, \Phi(s) \,=\, s + \frac{c}{s} \;\ge\; 2\sqrt{c} \;\ge\; \sqrt{c} ,
 \end{equation}
-thus $s_{\mathrm{new}} \ge \sqrt{c}$. On the next step, if $c$ does not change much, the monotonicity of $\Phi$ persists: $\Phi'(s) \ge 0$. Hence $\Phi$ cannot make the "large" vector smaller than the "small" one under the same event ("item $i$ appeared at least once in the collected batch"). The fact that $c$ does not grow too fast at each step is proved in attachment Z.
+thus $s_{\mathrm{new}} \ge \sqrt{c}$. On the next step, if $c$ does not change much, the monotonicity of $\Phi$ persists: $\Phi'(s) \ge 0$. Hence $\Phi$ cannot make the "large" vector smaller than the "small" one under the same event ("item $i$ appeared at least once in the collected batch"). The fact that $c$ does not grow too fast at each step is proved in Appendix~\ref{app:note-on-c-variability}.
 
 \paragraph{4) Induction over steps: why "larger $p_i$" implies "no smaller outcome".}
 Synchronize randomness as in part~1 and iterate over steps $t$:
