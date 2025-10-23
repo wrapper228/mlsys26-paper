@@ -1,0 +1,12 @@
+\subsection{Does Orthogonality of Embedding Movement Imply Popularity Bias?}
+
+See Table~\ref{tab:orthogonality-popbias}. In this subsection I use MovieLens 32M dataset.
+
+In Experiments~8 and~9 I test whether the orthogonality property leads to the emergence of popularity bias. 
+
+\textit{Result.} If embeddings move orthogonally under the factors described above, they do increase their norms; thus items that “receive movement” more often (more popular items, appearing more frequently in training batches) systematically accumulate larger norms. We observe a substantial and statistically significant correlation between item popularity and embedding norm (Pearson correlation 0.54; the null hypothesis of zero correlation is rejected at $p<0.05$). However, there is an important caveat, discussed next.
+
+\textit{Nuance.} We identify an important factor required for the appearance of popularity bias under orthogonal movement: embeddings must move with sufficiently large orthogonal displacement. Purely tangential movement over very short distances yields almost no increase in the embedding norm (by the Pythagorean theorem) and cannot overcome the random norm at initialization. In Experiment~8 I increased the learning rate of the SGD optimizer so that objects moved over larger distances; with a commonly used smaller learning rate (LR $=0.1$) objects moved extremely slowly and effectively did not leave their previous-radius hyperspheres, and I did not observe a statistically significant popularity–norm correlation (Experiment~9).
+
+This finding is consistent with the analysis from Section~\ref{sec:norm-monotonicity}.
+

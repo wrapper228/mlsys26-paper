@@ -1,0 +1,30 @@
+\subsection{Proposition: When Embeddings Move Orthogonally}
+
+If the encoder satisfies the following four conditions simultaneously:
+\begin{enumerate}
+  \item optimization uses SGD without momentum and without regularization (the only way to guarantee strict movement defined by equations), 
+  \item the encoder is linear in its parameters (parameter-linear),
+  \item each distinct input has a dedicated, non-shared parameter row (no overlap across inputs),
+  \item the loss gradient with respect to the encoder output (the embedding) is orthogonal to that output,
+\end{enumerate}
+
+then it can be proved analytically (\ref{eq:ort-move-proof}) that, during training, the embedding moves orthogonally, i.e., tangentially to the hypersphere on which it located at the previous step.
+
+\begin{table*}[!t]
+\centering
+\small
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+No. & Left (user) encoder & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & Orthogonal trajectory? \\
+\midrule
+1 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+2 & Embedding & InfoNCE (\textbf{dot}) & $\checkmark$ & $\times$ & $\times$ \\
+3 & BERT-like & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+4 & Embedding $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+5 & Embedding (frozen) $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+6 & one-hot $\to$ Linear & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+7 & Embedding & $\bigl(1 - \cos(q,k)\bigr)^{2}$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\caption{Subsection "Under Which Factors Orthogonality of Embedding Movement Emerges" -- experiments on orthogonality of embedding movement across left (user) encoder architectures and losses. See definitions on ``Cond.~1'' and ``Cond.~2'' in subsection definitions.}\label{tab:orthogonality-summary}
+\end{table*}

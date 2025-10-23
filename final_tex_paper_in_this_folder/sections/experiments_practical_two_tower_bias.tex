@@ -1,0 +1,14 @@
+\subsection{Popularity bias in practical two-tower setup}
+
+Here I consider an asymmetric two-tower model that is close to a production training design (Experiment 10, Table~\ref{tab:orthogonality-popbias}, same MovieLens 32M dataset): the left tower is a deep BERT over the user's history; the right tower is, again, a simple embedding layer over the item identifier. 
+Using such a simple architecture for item tower is a popular scenario when representing an item without convolutions and content features is an intentional design choice. 
+For instance, the YouTube paper adopts such an approach by using a trainable item (class) embedding as the input to a softmax loss; 
+the CONTEXTGNN paper likewise employs a simple item-embedding matrix as an item tower, arguing that a complex item-side architecture may not provide substantial gains: \emph{"Limited information gain from applying a GNN on the item side"} and \emph{"Shallow embedding matrices are very effective"}.
+
+I use separate optimizers for the two towers: user BERT is trained by Adam with weight decay, and the item embedding layer is trained by SGD without momentum and without regularization. 
+In both cases I use a Cyclic LR schedule. 
+
+Empirical results are consistent with the theory: when the right (item) tower and its training dynamics remain simple -- note that a dynamic learning-rate schedule does not invalidate the orthogonal‑movement result -- item embeddings continue to move orthogonally even in the presence of a complex left‑tower architecture.
+Given sufficiently large orthogonal displacement (e.g., LR=10 for item tower), a statistically significant popularity bias emerges, observed as a positive correlation between an item’s embedding norm and its frequency in the training set (Pearson correlation 0.56; the null hypothesis of zero correlation is rejected at $p<0.05$).
+
+
