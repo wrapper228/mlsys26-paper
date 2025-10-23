@@ -9,3 +9,22 @@ If the encoder satisfies the following four conditions simultaneously:
 \end{enumerate}
 
 then it can be proved analytically (\ref{eq:ort-move-proof}) that, during training, the embedding moves orthogonally, i.e., tangentially to the hypersphere on which it located at the previous step.
+
+\begin{table*}[!t]
+\centering
+\small
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+No. & Left (user) encoder & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & Orthogonal trajectory? \\
+\midrule
+1 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+2 & Embedding & InfoNCE (\textbf{dot}) & $\checkmark$ & $\times$ & $\times$ \\
+3 & BERT-like & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+4 & Embedding $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+5 & Embedding (frozen) $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+6 & one-hot $\to$ Linear & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+7 & Embedding & $\bigl(1 - \cos(q,k)\bigr)^{2}$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\caption{Summary of experiments probing when the left-encoder trajectory is orthogonal.}
+\end{table*}
