@@ -1,0 +1,40 @@
+\subsection{Factors Under Which Embedding-Motion Orthogonality Emerges}
+
+\textit{Dataset and protocol.} We use a small toy synthetic dataset in which personalized dependencies can be observed visually; the dataset and all scripts are available in a public GitHub repository X (link to be added). Throughout these experiments, the right (item) tower is a simple embedding layer.
+
+\textit{Definitions.} 
+Condition~1: the encoder architecture consists of either (i) a single linear layer applied to one-hot inputs, or (ii) an embedding layer. 
+Condition~2: the gradient of the loss with respect to the encoder output is orthogonal to that output.
+
+\begin{table*}[!t]
+\centering
+\small
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+No. & Left encoder & Loss & Cond.~1? & Cond.~2? & Orthogonal trajectory? \\
+\midrule
+1 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+2 & Embedding & InfoNCE (dot) & $\checkmark$ & $\times$ & $\times$ \\
+3 & BERT-like & InfoNCE (cos) & $\times$ & $\checkmark$ & $\times$ \\
+4 & Embedding $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & $\times$ \\
+5 & Embedding (frozen) $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & $\times$ \\
+6 & one-hot $\to$ Linear & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+7 & Embedding & $\bigl(1 - \cos(q,k)\bigr)^{2}$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\caption{Summary of experiments probing when the left-encoder trajectory is orthogonal.}
+\end{table*}
+
+\textit{Clarifications.} In all experiments the item tower is nn.Embedding; InfoNCE denotes the contrastive softmax loss with in-batch negatives, where ``cos'' (resp., ``dot'') refers to cosine (resp., dot-product) similarity. We use vanilla SGD without momentum; alternative optimizers did not reveal additional dependence, though we will separately analyze mixed-optimizer settings (including Adam) later (see Experiment~10).
+
+\paragraph{What happens if the encoder is nonlinear in the parameters?}
+Two linear layers constitute nonlinearity with respect to the model parameters. Under such nonlinearity the analytic explanation above does not apply. Consistently, Experiment~4 shows that, unlike Experiments~1 and~6, left-encoder embeddings move in a non-orthogonal, chaotic manner.
+
+\paragraph{What if, despite parameter linearity, the inputs to the encoder are not mutually orthogonal?}
+Linearity of the encoder is not sufficient to guarantee orthogonal motion. Experiment~5 shows that embeddings produced by the left encoder move chaotically when inputs are not orthogonal. For orthogonality we require that every unique input has its own parameter row that does not overlap with others. We find only two architectures where this holds: a linear layer over one-hot vectors (Experiment~6) and an embedding layer (Experiment~1).
+
+\paragraph{What if we change the loss?}
+The outcome of Experiment~7 is consistent with the statement that the gradient of any cosine-based loss with respect to the encoder output is orthogonal to that output.
+
+These experiments increase our confidence in the analytical conclusions about orthogonality of embedding motion.
+
