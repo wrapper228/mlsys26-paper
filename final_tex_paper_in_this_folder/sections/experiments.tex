@@ -6,13 +6,14 @@
 \small
 \begin{tabular}{@{}cccccccc@{}}
 \toprule
-No. & \begin{tabular}{@{}c@{}} Left (user) \\ encoder \end{tabular} & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & \begin{tabular}{@{}c@{}} Orthogonal \\ trajectory? \end{tabular} & \begin{tabular}{@{}c@{}} Sufficient orthogonal \\ displacement? \end{tabular} & \begin{tabular}{@{}c@{}} Popularity \\ bias? \end{tabular} \\
+No. & \begin{tabular}{@{}c@{}} Left (user) \\ encoder \end{tabular} & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & \begin{tabular}{@{}c@{}} Orthogonal \\ trajectory? \end{tabular} & \begin{tabular}{@{}c@{}} Sufficient orthogonal \\ displacement? \end{tabular} & \begin{tabular}{@{}c@{}} Popularity \\ bias for item? \end{tabular} \\
 \midrule
 8 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high learning rate) \end{tabular} & $\checkmark$ \\
 9 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\times$ \\ (low learning rate) \end{tabular} & $\times$ \\
+10 & \begin{tabular}{@{}c@{}} BERT-like (with\\Adam optimizer) \end{tabular} & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$\\Item $\checkmark$ \end{tabular} & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high learning rate) \end{tabular} & $\checkmark$ \\
 \bottomrule
 \end{tabular}
-\caption{Do orthogonal trajectories produce popularity bias? Condition~1: single parameter-linear layer over one-hot inputs or a single embedding layer; Condition~2: loss gradient orthogonal to the encoder output. The last column indicates whether the orthogonal displacement per step is sufficiently large.}\label{tab:orthogonality-popbias}
+\caption{Last two experiment subsections -- experiments on the emergence and detectability of popularity bias. Exp. 8 and 9 report whether the displacement is sufficient and whether popularity bias is observed. Exp. 10 demonstrates a production-like asymmetric setup, which corroborates the same mechanism for item popularity bias.}\label{tab:orthogonality-popbias}
 \end{table*}
 
 To clarify scope, we do not assess recommendation quality on held-out datasets and we do not report relevance metrics (e.g., MAP@k). 
