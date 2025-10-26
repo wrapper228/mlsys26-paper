@@ -1,13 +1,13 @@
 \section{Popularity Dependence via Coupling}
 \label{app:popularity-dependence}
 
-We aim to show that, after $T$ training batches, the embedding norm of item $i$ is nondecreasing in its sampling probability $p_i$:
+I aim to show that, after $T$ training batches, the embedding norm of item $i$ is nondecreasing in its sampling probability $p_i$:
 \begin{equation}
 \mathbb E\,\bigl\|q_i^{(T)}\bigr\| \;\text{ is nondecreasing in }\; p_i.
 \end{equation}
-We employ the coupling method from probability theory \cite{roch_mdp_2024}.
+I employ the coupling method from probability theory \cite{roch_mdp_2024}.
 
-\paragraph{1) Two runs on the same randomness (we fixed the random outcome of batch generation).}
+\paragraph{1) Two runs on the same randomness (I fixed the random outcome of batch generation).}
 Run training twice, differing only in the sampling probability of item $i$: $p_i' < p_i''$. At each step $t$ and for every slot of the batch draw the same random number $U \sim \mathrm{Uniform}(0,1)$:
 \begin{itemize}
   \item in the run with parameter $p$, place $i$ into the slot if $U \le p_i$;
@@ -58,9 +58,9 @@ Hence, after any single occurrence:
 \begin{equation}
 s_{\mathrm{new}} \,=\, \Phi(s) \,=\, s + \frac{c}{s} \;\ge\; 2\sqrt{c} \;\ge\; \sqrt{c} ,
 \end{equation}
-thus $s_{\mathrm{new}} \ge \sqrt{c}$. On the next step, if $c$ does not change much, the monotonicity of $\Phi$ persists: $\Phi'(s) \ge 0$. Hence $\Phi$ cannot make the "large" vector smaller than the "small" one under the same event ("item $i$ appeared at least once in the collected batch"). The fact that $c$ does not grow too fast at each step is proved in Appendix~\ref{app:note-on-c-variability}.
+thus $s_{\mathrm{new}} \ge \sqrt{c}$. On the next step, if $c$ does not change much, the monotonicity of $\Phi$ persists: $\Phi'(s) \ge 0$. Hence $\Phi$ cannot make the “large” vector smaller than the “small” one under the same event (“item $i$ appeared at least once in the collected batch”). The fact that $c$ does not grow too fast at each step is proved in Appendix~\ref{app:note-on-c-variability}.
 
-\paragraph{4) Induction over steps: why "larger $p_i$" implies "no smaller outcome".}
+\paragraph{4) Induction over steps: why “larger $p_i$” implies “no smaller outcome”.}
 Synchronize randomness as in part~1 and iterate over steps $t$:
 \begin{itemize}
   \item if $i$ is absent in both runs, both $s$ stay unchanged;

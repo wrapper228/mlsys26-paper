@@ -26,7 +26,7 @@ u \,=\, \sum_{i=1}^{m} \frac{\partial F}{\partial cos_i}\,\hat k_i
 \end{equation}
 cannot keep growing sharply for many steps; a persistent sharp growth of the norm of the aggregate gradient $u$ would signal a diverging training process.
 
-If we slightly relax the formality of reasoning, we can additionally state that for a sharp growth of the norm of $u$ it would be necessary that, simultaneously, all contributions $\hat k_i$ add up co-directionally in the tangent plane to $q$ — I suppose that in a random batch collection process this event is unlikely. Even if for some reason this happens often, the sum of contributions is limited by the number of pairs with this item in the training set and by the value of $\tfrac{\partial F}{\partial cos}$, whose stability I rigorously justified above.
+At a heuristic level, a sharp growth of the norm of $u$ would require that, simultaneously, all contributions $\hat k_i$ add up co-directionally in the tangent plane to $q$ — an event I consider unlikely under random batch formation. Even if for some reason this happens often, the sum of contributions is limited by the number of pairs with this item in the training set and by the value of $\tfrac{\partial F}{\partial cos}$, whose stability I rigorously justified above.
 
 \textbf{2) If this rare spike happens and temporarily yields $s < \sqrt{c}$ :}
 

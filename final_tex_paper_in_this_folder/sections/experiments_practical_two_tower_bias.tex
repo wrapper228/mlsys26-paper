@@ -11,7 +11,7 @@ Yuan et al. \yrcite{yuan2024contextgnn} likewise employs a simple item-embedding
 I use separate optimizers for the two towers: user BERT is trained by Adam with weight decay, and the item embedding layer is trained by SGD without momentum and without regularization. 
 In both cases I use a Cyclic LR schedule \cite{smith2017clr}. 
 
-Empirical results are consistent with the theory: when the right (item) tower and its training dynamics remain simple -- note that a dynamic learning-rate schedule does not invalidate the orthogonal‑movement result -- item embeddings continue to move orthogonally even in the presence of a complex left‑tower architecture.
+Empirical results are consistent with the theory: when the right (item) tower and its training dynamics remain simple — note that a dynamic learning‑rate schedule does not invalidate the orthogonal‑movement result — item embeddings continue to move orthogonally even in the presence of a complex left‑tower architecture.
 Given sufficiently large orthogonal displacement (e.g., LR=10 for item tower), a statistically significant popularity bias emerges, observed as a positive correlation between an item’s embedding norm and its frequency in the training set (Pearson correlation 0.56; the null hypothesis of zero correlation is rejected at $p<0.05$).
 
 
