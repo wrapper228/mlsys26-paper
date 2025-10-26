@@ -4,7 +4,7 @@ I consider a canonical two-tower architecture with disjoint parameter sets: a le
 
 A minimal instance is \emph{Alternating Least Squares}, where the two encoders degenerate to the user and item embedding matrices. I, however, develop the analysis for general encoders and introduce architectural restrictions only where they are strictly required by the following mathematics.
 
-Training proceeds by backpropagation. For a fixed encoder (left or right), I use the following notation:
+Training proceeds by backpropagation \cite{goodfellow2016deeplearning}. For a fixed encoder (left or right), I use the following notation:
 
 \begin{description}
 \item[$g_j$] loss gradient w.r.t. the encoder output $q_j$ for the $j$-th example in the batch;

@@ -80,7 +80,7 @@ Hence,
 \end{aligned}
 \end{equation}
 
-Here we see that, as the embedding norm grows, the gradient norm decreases:
+Here I note that, as the embedding norm grows, the gradient norm decreases:
 \begin{itemize}
   \item the denominator is the embedding norm $\|q\|$;
   \item the numerator does not depend on $\|q\|$: when computing $u$, $q$ appears only inside the derivative $\partial F/\partial c_i$ (through the cosines). A pure rescaling of $q$ does not change the cosines; therefore the input to $F$ does not change, and the derivatives $\partial F/\partial c_i$ do not depend on $\|q\|$.
