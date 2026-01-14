@@ -1,0 +1,61 @@
+MLSys 2026 Call For Papers
+Authors are encouraged to submit previously unpublished research at the intersection of machine learning and computer systems. The MLSys Program Committee will select papers based on a combination of novelty, quality, interest, and impact.
+
+Topics of interest cover both systems for machine learning and machine learning for systems, and include, but are not limited to:
+
+Efficient model training, inference, and serving
+Large language model (LLM) training, fine-tuning, and inference
+Large-scale reinforcement learning for LLMs
+Autonomous and agentic AI systems
+Multimodal AI systems for perception/voice-based interactions
+Storage systems for large-scale ML systems (training/serving/RL)
+Distributed and federated learning algorithms
+Privacy and security for ML applications
+ML methods for job scheduling in computing systems
+Testing, debugging, and monitoring of ML applications
+Fairness, interpretability, and explainability for ML applications
+Data preparation and data cleaning
+ML programming models and abstractions
+Programming languages for machine learning
+ML compilers and runtimes
+Visualization of data, models, and predictions
+Specialized hardware for machine learning
+LLM-based hardware design or system optimization techniques
+Hardware-efficient ML methods
+Machine learning benchmarks, datasets, and tooling
+New in 2026: Call for Industrial Track Submissions
+
+MLSys'26 also solicits papers that describe the design and implementation of large-scale ML systems in industry. The industrial track aims to bring the values, trends, and perspectives of real-world ML systems and serves as a venue to encourage industry participation to interact with academia to present challenges and opportunities for forward-looking ML systems research. We welcome submissions that challenge or reinforce existing solutions, provide deeper insights into known problems, or rigorously validate published techniques at scale. Industrial track submissions need NOT present new ideas or novel solutions to be accepted but they should present design methodology and detailed benchmarks for large-scale ML systems that were built.
+
+Please note that submission and anonymization rules differ for papers submitted to the industrial track. As with other submissions, author names must be withheld. However, unlike the research track, authors are not required to anonymize the content of their submission beyond this—company names, product names, URLs, and other identifying details may be included as appropriate to the work.
+
+Authors can submit their papers to either track (i.e., research or industrial); however, authors CANNOT switch tracks after the submission deadline since the submission rules differ. Research track submissions are reviewed based on a combination of novelty, quality, and impact, while industrial track submissions are evaluated based on the impact, lessons and experiences from building real-world, large-scale ML systems and their influence on the MLSys community.
+
+Reviewing Process: All submissions will be double-blind, though authors are allowed to post their papers on arXiv or other public forums. Key dates related to the reviewing process are given below:
+
+Submission site: MLSys 2026 Hot CRP Submission
+Submission start date: Sep 15, 2025 20:00 UTC
+Paper submission deadline: Oct 30, 2025 20:00 UTC
+Author response period:
+Reviews available: Jan 12, 2026
+Author responses due: Jan 16, 2026
+Author notifications: Jan 25, 2026
+Double-blind policy: The review process follows a double-blind model. Submissions that do not follow the anonymization guidelines will be rejected without review.
+
+For research track papers, authors are required to make a good-faith effort to anonymize their submissions and must avoid identifying themselves either explicitly or implicitly (e.g., through self-references or acknowledgments). Institutional affiliations must also be anonymized.
+For Industrial track papers, the authors are required to anonymize the author names but they are allowed to include company names, product names, URLs, and other identifying details as appropriate to the work.
+Dual submission policy: We will not accept any paper which, at the time of submission, is under review for another conference or has already been published. This policy also applies to papers that overlap substantially in technical content with conference papers under review or previously published. After submission and during the review period, MLSys submissions must not be submitted to other conferences. This policy has the following exceptions.
+
+Authors may submit to MLSys substantially different versions of journal papers that are currently under review by a journal, but not yet accepted at the time of submission.
+Authors may submit in parallel to MLSys and to non-archival venues, such as conferences or workshops without proceedings.
+Authors may post technical reports (e.g., arXiv) of papers submitted to MLSys.
+Subject to approval by the program chairs, authors may submit expanded versions of papers published at workshops with proceedings. The authors should explain the differences between the workshop version and the full paper and email the workshop paper to the program chairs. These latter submissions will be evaluated on the added novelty compared to their workshop version.
+Submission format: To prepare your submission to MLSys 2026, please use the LaTeX style files provided at: mlsys2025style.zip (we are using the same submission format as 2025). Submitted papers will be in a 2-column format and can be up to 10 pages long, not including references. Each reference must explicitly list all authors of the paper. Authors may use as many pages of appendices as they wish, but reviewers are not required to read these. If you wish to include an appendix, please upload this separately from your main paper. You will be able to upload the appendix after submitting your main paper. The appendix is due at the same time as the main paper.
+
+Artifacts: Our conference promotes reproducibility of experimental results and encourages code and data sharing to help the community quickly validate and compare alternative approaches. We invite authors of accepted papers MLSys 2026 to submit their supporting materials (code, data, models, experimental workflows, results) to the Artifact Evaluation process based on the ACM Artifact Review and Badging policy, a standard for systems conferences including ASPLOS, CGO, PLDI, PPoPP and Super Computing. This submission is voluntary and will not influence the final decision regarding the papers.
+
+Conflicts of Interest: Authors must register all their conflicts on the paper submission site. Conflicts are needed to ensure appropriate assignment of reviewers. If a paper is found to have an undeclared conflict that causes a problem OR if a paper is found to declare false conflicts in order to abuse or "game" the review system, the paper may be rejected. Please review the definitions of Conflict of Interest.
+
+Plagiarism: All forms of plagiarism are disallowed at MLSys, as is any unethical attempt to subvert or corrupt the peer review process. While authors are free to consult a large-scale language model (LLM) such as ChatGPT while writing the paper, papers where the content is generated by LLMs or other generative models alone are prohibited unless this content is illustrative or is presented as a part of the paper's experimental analysis.
+
+Submissions that violate these instructions may be returned without review, at the discretion of the Program Chairs, to ensure a review process that is fair to all potential authors.

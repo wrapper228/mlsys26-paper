@@ -1,0 +1,37 @@
+\subsection{One Equation that Underpins the Analysis}
+
+I consider a canonical two-tower architecture with disjoint parameter sets: a left encoder and a right encoder. Embedding learning in such systems is typically effected by moving the left output closer to or farther from the right output; for example, by objectives that minimize or maximize the dot product between a user embedding and an item embedding (the outputs of the left and right encoders).
+
+A minimal instance is \emph{Alternating Least Squares}, where the two encoders degenerate to the user and item embedding matrices. I, however, develop the analysis for general encoders and introduce architectural restrictions only where they are strictly required by the following mathematics.
+
+Training proceeds by backpropagation \cite{goodfellow2016deeplearning}. For a fixed encoder (left or right), I use the following notation:
+
+\begin{description}
+\item[$g_j$] loss gradient w.r.t. the encoder output $q_j$ for the $j$-th example in the batch;
+\item[$J_j$] Jacobian of $q_j$ w.r.t. all encoder parameters $\theta$.
+\end{description}
+
+The relations are
+\begin{align}
+g_j &= \frac{\partial \mathcal{L}}{\partial q_j},\\
+J_j &= \frac{\partial q_j}{\partial \theta}.
+\end{align}
+
+It follows that the gradient of the loss w.r.t. the encoder parameters is
+\begin{align}
+g_{\theta} &= \sum_{j} \frac{\partial q_j}{\partial \theta}\, \frac{\partial \mathcal{L}}{\partial q_j}
+= \sum_{j} J_{j}^{\!\top}\, g_{j}.
+\end{align}
+
+Therefore, a single SGD step on this batch yields
+\begin{align}
+\Delta \theta &= -\eta\,g_{\theta}
+= -\eta \sum_{j} J_{j}^{\!\top}\, g_{j},
+\end{align}
+where $\eta$ denotes the learning rate.
+
+To relate parameter updates to movements in representation space, I linearize the encoder around the current parameters and obtain
+\begin{align}
+\boxed{\; \Delta q_{i} = J_{i}\,\Delta\theta = -\eta \sum_{j} J_{i}\,J_{j}^{\!\top}\,g_{j} \;}\label{eq:starting-formula}
+\end{align}
+This equation serves as the point of departure for the following analysis.

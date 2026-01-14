@@ -1,0 +1,93 @@
+Dear author,
+
+The author response period will begin next Monday (1/12), and you will
+have until next Friday (1/16) AOE to submit your response. In
+preparation, we would like to share a set of instructions and advice,
+adapted from guidance developed by Derek Dreyer and Zach Tatlock. Please
+read this email carefully, as it contains important information and
+guidelines for the response process.
+
+1. **Stay anonymous**
+
+MLSys uses a double-blind review process, so reviewers do not know the
+authors’ identities. Please do not, under any circumstances, reveal your
+identity in your author response. For industry track submissions,
+authors may include company names and product names in the response, but
+should not reveal author names. If you believe there is a compelling
+reason to disclose identifying information, please contact the PC chairs
+by email before doing so.
+
+2. **Word limit**
+
+Author responses may be up to 2000 words. Shorter, more focused
+responses are often more effective, while responses exceeding 2000 words
+are not permitted.
+
+3. **Submitting a response is strongly recommended**
+
+Submitting an author response is optional but strongly encouraged. The
+response provides an opportunity to clarify misunderstandings, address
+reviewers’ concerns, and help reviewers better assess your work. Not
+submitting a response may signal to reviewers that you do not wish to
+engage with their feedback.
+
+4. ** Finalize your response before submitting**
+
+Note that HotCRP emails your response to reviewers as soon as you submit
+it. As a result, reviewers may start reading your response immediately,
+even before the response deadline. We therefore recommend finalizing
+your response text before submitting it. While you may re-submit your
+response if needed, each resubmission will generate an additional email
+notification to reviewers.
+
+5. ** Additional reviews**
+
+A very small number of reviews are still outstanding. As a result, some
+papers may receive additional reviews during or after the author
+response period. The PC will take into account that authors did not have
+an opportunity to respond to such reviews during deliberations.
+
+6. **Structure of the response**
+
+The author response serves two primary purposes: (1) to correct factual
+errors or points of confusion in the reviews, and (2) to convince
+reviewers that you have a concrete, feasible plan to revise the paper to
+address their criticisms within the approximately two months between
+notification of conditional acceptance and the camera-ready deadline.
+
+To this end, you may consider the following structure for your response:
+
+- OPENING: Begin your response by thanking the reviewers. They invested
+substantial effort—many during the holiday period—to produce more than
+1,600 reviews for MLSys.
+
+- OVERVIEW: A brief overview of the key points of your response. You may
+highlight major factual errors in the reviews, acknowledge major
+criticisms (especially those raised by multiple reviewers), and briefly
+explain how you plan to address them. Avoid being defensive; for
+example, if reviewers found part of the paper unclear, acknowledge this
+and describe how you will improve the presentation.
+
+- CHANGE LIST: A concise, bulleted list of the major, concrete changes
+you plan to make to address the reviewers' criticisms. This list should
+align with the issues discussed in the overview and demonstrate that you
+have a clear and executable revision plan.
+
+- DETAILED RESPONSE: A reviewer-by-reviewer list of responses to
+substantive questions and comments. While it is not necessary to address
+every minor point, it is generally helpful to respond to the most
+significant concerns.
+
+We hope the author response allows the PC to give full consideration to
+each submission and ultimately strengthens the quality and depth of the
+MLSys 2026 program.
+
+* Title: Theoretical Grounds for Popularity Bias in Two-Tower Models
+  Trained with Cosine-Based Loss
+* Site: https://mlsys26.hotcrp.com/paper/720
+
+Contact zhihao@cmu.edu and achowdhe@stanford.edu with any questions or
+concerns.
+
+- MLSys26 Submissions
+https://mlsys26.hotcrp.com

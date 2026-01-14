@@ -1,0 +1,22 @@
+\section{Embedding-Norm Is Monotonic in Item Popularity}
+\label{sec:norm-monotonicity}
+
+Throughout this section (as well as corresponding appendices) I assume the four conditions from Section~2 hold (SGD without momentum/regularization; parameter-linear encoder; non-shared parameter rows; cosine-loss gradient orthogonal to the output). Under these assumptions the embedding moves orthogonally at each update. By the Pythagorean theorem,
+\begin{equation}
+\label{eq:pythagoras-increment}
+\bigl\|q_i^{(t+1)}\bigr\|^{2} - \bigl\|q_i^{(t)}\bigr\|^{2} \;=\; \bigl\|\Delta q_i^{(t)}\bigr\|^{2}.
+\end{equation}
+
+Before analyzing the dependence on popularity, I state a claim and provide its proof in the appendix:
+\begin{quote}
+\textbf{Claim.} The larger the embedding norm, the slower it grows under a cosine-based loss.
+\end{quote}
+The proof (Appendix~\ref{app:cosine-growth-rate}) derives an explicit expression for the norm of the gradient and shows its inverse dependence on the current norm of $q$.
+I use this claim in the following Appendix~\ref{app:popularity-dependence}.
+
+Finally, I analyze the dependence of the embedding-norm growth on item popularity. Using a coupling probabilistic technique (Appendix~\ref{app:popularity-dependence}), I show that the expected embedding norm after $T$ batches is nondecreasing in the item's sampling probability.
+
+\paragraph{Takeaway.} This section and the corresponding appendices provide a formal mechanism for popularity bias: under the four assumptions of Section~2, more frequently sampled items accumulate larger norms. 
+To observe a statistically significant popularity bias in practice, an additional (fifth) factor is required; it will be discussed in the next section.
+
+

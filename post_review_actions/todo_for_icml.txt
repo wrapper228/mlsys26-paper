@@ -1,0 +1,80 @@
+TODO: Changes for ICML Submission
+==================================
+
+1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated
+   
+   WHERE: At the end of the paragraph "If the encoder is nonlinear in the parameters:" or after discussing chaotic movement
+   
+   WHAT TO ADD: A sentence like "When conditions are violated, the angle distribution shows high variance with no concentration around 90°"
+   
+   WHY: Preemptively addresses potential reviewer question about whether "chaotic" means truly non-systematic or just "almost orthogonal"
+
+2. [conclusion.tex] Add future work mention about partial violations
+   
+   WHERE: In Conclusion section, or create a brief "Future Work" paragraph
+   
+   WHAT TO ADD: "Characterizing the degree of orthogonality degradation under partial violations of the conditions remains an interesting direction for future work."
+   
+   WHY: Preemptively addresses potential question "What happens under partial violations? Is there graceful degradation?" — frames it as acknowledged open question, not gap in current work
+
+3. [sufficient_conditions section or where A4 is discussed] Add clarification why momentum breaks orthogonality
+   
+   WHERE: Near the statement of condition (A4) about SGD without momentum
+   
+   WHAT TO ADD: "Momentum accumulates past gradients, which have no reason to remain orthogonal to the current embedding; hence condition (A4) requires plain SGD."
+   
+   WHY: Makes the "obvious" reasoning explicit for the reader. Addresses reviewer 720D question about momentum without requiring additional experiments — this is a trivial corollary, not an empirical question.
+4. [paper.tex - Abstract] Improve precision of popularity bias definition
+   
+   WHERE: First sentence of Abstract
+   
+   CHANGE FROM: "Two-tower models may exhibit popularity bias, observed as a positive correlation between item frequency and its embedding norm that inflates dot-product scores at ranking time."
+   
+   CHANGE TO: "Two-tower models may exhibit popularity bias: a positive correlation between item frequency and embedding norm inflates dot-product scores for popular items at ranking time, making magnitude dominate over directional similarity in the retrieval outcomes."
+   
+   WHY: Current "observed as" conflates cause (coupling) and effect (bias). New version makes causal chain explicit and clarifies the mechanism (magnitude vs direction). Important for ICML theory track precision. Note: the colon after 'popularity bias' still introduces a definition - popularity bias is defined through its effect (inflated scores for popular items), which is more precise than defining it through the observed artifact (correlation).
+5. [experiments table with Exp 8-10] Add two columns showing popularity bias in retrieval outcomes
+   
+   WHERE: Table with experiments 8-10 (popularity bias experiments)
+   
+   WHAT TO ADD: Two new columns:
+   - "Top-100 by dot (% popular)" — share of popular items in top-100 retrieved by dot-product
+   - "Top-100 by cosine (% popular)" — share of popular items in top-100 retrieved by cosine similarity
+   
+   WHY: Directly demonstrates causal chain: freq-norm coupling → magnitude dominates → popularity bias in retrieval. The difference between dot and cosine columns shows the bias caused by magnitude. Addresses reviewer 720D question about whether norm inflation actually affects retrieval outcomes. Without cosine baseline, the dot-product number alone is not interpretable ("Is 40% high or normal?").
+
+6. [conclusion.tex] Add scope clarification about quality impact
+   
+   WHERE: In Conclusion or Discussion section
+   
+   WHAT TO ADD: "How popularity bias affects recommendation quality is orthogonal to the present theoretical contribution and left for future work."
+   
+   WHY: Preemptively addresses potential question "Does popularity bias hurt quality?" without requiring relevance metric experiments. For ICML theory track, the contribution is about mechanism, not downstream impact. This sentence acknowledges the question and explicitly places it out of scope.
+
+7. [DO NOT ADD] Practical guideline for practitioners
+   
+   CONSIDERED: Adding explicit advice like "if you don't want this popularity bias, avoid training designs that mathematically guarantee it"
+   
+   DECISION: Do NOT add (not sure).
+   
+   WHY: 
+   - For ICML theory track, this adds no new theoretical insight (it's just the contrapositive of the main result)
+   - Explicit "engineering advice" framing may make the paper look like a systems/practical contribution rather than theoretical (is it true?)
+   - Risk: reviewer may think author is overselling theory as practical guideline **without showing that avoiding bias improves anything**
+   - Current Conclusion already says "This may be critical for downstream ranking tasks... if this property is not taken into account" — sufficient hint at practical relevance without explicit advice
+
+   **BUT:** Maybe add this at the end of "Conclusion" part?
+   Finally, our theoretical characterization offers a perspective on architectural design. Since the identified sufficient conditions act as a structural mechanism for frequency-norm coupling, violating them (e.g., by ensuring deep non-linearity between trainable parameters and the output embedding) breaks the mathematical guarantee of 
+   this bias. This suggests that practitioners can structurally decouple representation learning from inevitable geometric inflation, rendering the growth of norms dependent on data signals rather than optimization artifacts.
+   Paradoxically, simpler 'baseline' architectures (e.g., shallow embedding lookups trained with SGD) are often the most vulnerable to this phenomenon. Such models perfectly satisfy the linearity and independence conditions (A1–A5), rendering popularity bias a mathematical 
+   certainty. In contrast, more complex designs (deep non-linear projection heads, momentum-based optimizers) often violate these 'bad' sufficient conditions.
+
+
+8. [introduction.tex] Add brief mention of alternative mechanisms for popularity bias
+   
+   WHERE: After the paragraph "Scope and implications" in Introduction
+   
+   WHAT TO ADD: One sentence referencing Zhang et al. (NeurIPS 2023) "Mitigating the popularity bias of graph collaborative filtering: A dimensional collapse perspective" and the dimensional collapse perspective:
+   "Other works (e.g., Zhang et al., NeurIPS 2023) attribute popularity bias to mechanisms such as 'dimensional collapse', which concerns the angular distribution of embeddings rather than their norms. Our analysis focuses on frequency–norm coupling as a distinct, optimization-induced source of bias."
+   
+   WHY: Clearly positions your contribution relative to alternative mechanisms in the literature, without expanding into a full survey. Makes scope explicit and preempts reviewer questions about necessity vs sufficiency.

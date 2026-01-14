@@ -1,0 +1,39 @@
+\subsection{Related work on orthogonal movement}
+
+In \cite{wang2017normface} a new way to train deep encoders is proposed. 
+In Section~3.2 they prove that, at the model output, for $x$ and the gradient $\partial\mathcal{L}/\partial x$, orthogonality holds, 
+after which they immediately make the logical transition 
+\begin{quote}
+\emph{“it can be inferred that after update, $\|x\|^2$ always increases”}\, \citep[p.~4]{wang2017normface}.
+\end{quote}
+That is, they implicitly assume that if the loss gradient with respect to the model output is orthogonal to the model output, then this output itself also moves orthogonally. This transition is not obvious: it switches from orthogonality of the gradient to orthogonality of the embedding displacement itself.
+
+Such orthogonality of the step is guaranteed only under a sufficiently strict set of conditions. I write these conditions explicitly and show that, when they are satisfied, embeddings do move orthogonally; outside this region the transition from orthogonality of the gradient to orthogonality of the embedding displacement (and hence to monotone growth of the embedding norm) may fail. Consequently, the motivation for modifying training \emph{because the update increases the point's norm} should be treated as a qualified claim: it is true in the configurations described by my conditions, but it is not a universal basis for changing how encoders are trained—especially deeper ones.
+
+The same critique applies to \cite{draganov2024pitfalls, draganov2025embeddingnorms}. 
+In particular, the former states:
+\begin{quote}
+\emph{“The gradient is orthogonal to the embedding, so a step of gradient descent can only increase the embedding's magnitude”}\, \citep[p.~10]{draganov2024pitfalls},
+\end{quote}
+and also claims
+\begin{quote}
+\emph{“these derivations are extremely general—they hold across deep learning architectures”}\, \citep[p.~1]{draganov2024pitfalls},
+\end{quote}
+without accounting for the fact that the gradient is taken with respect to the model output rather than the parameters; 
+it also supports the claim only by observing norm growth in experiments, without analyzing whether that growth is indeed caused by orthogonal displacement of the embedding. 
+
+The latter states:
+\begin{quote}
+\emph{“Because gradient updates are orthogonal to an embedding point, they must increase the point’s norm”}\, \citep[p.~2]{draganov2025embeddingnorms},
+\end{quote}
+which is correct only after refining the conditions under which the embedding displacement (and not just the gradient) is orthogonal. Such a simplification can mislead the reader about the universality of the “inevitable catch-22”.
+
+It should be acknowledged that in Appendix~B they provide a qualification, stating
+\begin{quote}
+\emph{“We optimize the cosine similarity by performing standard gradient descent on the embeddings themselves”}\, \citep[p.~17]{draganov2025embeddingnorms},
+\end{quote}
+which implies a shallow architecture such as an Embedding Layer; however, this architectural restriction (if intended) is fixed only in the appendix, while the main text presents the correctness of the previous claim without specifying the architecture.
+
+When the conditions above do hold, my analytic proof of orthogonal embedding displacement indeed implies growth of the embedding norm (by the Pythagorean theorem). A natural question then arises: how should this growth be evaluated analytically?
+
+

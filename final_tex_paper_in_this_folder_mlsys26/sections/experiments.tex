@@ -1,0 +1,29 @@
+\section{Experiments: Empirical Validation of Theoretical Results}
+\label{sec:experiments}
+
+\begin{table*}[!t]
+\caption{First subsection of experiments — orthogonality of embedding movement across left (user) encoder architectures and losses. See definitions on ``Cond.~1'' and ``Cond.~2'' in subsection definitions.\\}\label{tab:orthogonality-summary}
+\centering
+\small
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+No. & Left (user) encoder & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & Orthogonal trajectory? \\
+\midrule
+1 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+2 & Embedding & InfoNCE (\textbf{dot}) & $\checkmark$ & $\times$ & $\times$ \\
+3 & BERT-like & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+4 & Embedding $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+5 & Embedding (frozen) $\to$ Linear & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$ / Item $\checkmark$ \end{tabular} \\
+6 & one-hot $\to$ Linear & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+7 & Embedding & $\bigl(1 - \cos(q,k)\bigr)^{2}$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+To clarify scope, I do not assess recommendation quality on held-out datasets and I do not report relevance metrics (e.g., MAP@k). 
+Instead, I empirically examine geometric properties of the training dynamics across encoder architectures and training designs, focusing on the orthogonality of embedding updates and the frequency–norm coupling predicted by the theory.
+All datasets and implementation details are available in a public \href{https://docs.google.com/anonymous_link_placeholder}{GitHub repository}.
+
+\input{sections/experiments_orthogonality_factors}
+\input{sections/experiments_orthogonality_popularity_bias}
+\input{sections/experiments_practical_two_tower_bias}

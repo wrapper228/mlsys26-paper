@@ -1,0 +1,148 @@
+MLSys26 Paper #720 Reviews and Comments
+===========================================================================
+Paper #720 Theoretical Grounds for Popularity Bias in Two-Tower Models
+Trained with Cosine-Based Loss
+
+
+Review #720A
+===========================================================================
+
+Overall merit
+-------------
+3. Weak accept (You are fine with accepting this paper and would not oppose
+   it. The work is correct but has limited technical contributions or weak
+   evaluation.)
+
+Reviewer expertise
+------------------
+2. Some familiarity
+
+Paper summary
+-------------
+This paper diagnoses norm inflation in two-tower recommendation/retrieval models and clarifies when it should be expected to induce popularity-related bias. Prior work (and common intuition) often treats the use of cosine-based objectives as implying orthogonal embedding updates and thus monotonic growth in embedding norms. The paper argues that this implication is generally invalid once embeddings are produced by a parameterized encoder: orthogonality of the gradient with respect to the embedding does not necessarily translate into orthogonal embedding motion after parameter updates. To address this gap, the paper provides a set of sufficient conditions under which orthogonal embedding displacement can be formally justified. Empirically, the paper adopts a geometry-first evaluation strategy, including “deep user tower + simple item tower” configurations, to validate the theoretical predictions and to demonstrate that orthogonality often breaks when the sufficient conditions are violated.
+
+Strengths
+---------
+* The problem is practically relevant for ML systems: two-tower recommenders are widely deployed, and norm inflation/popularity-linked norm effects can meaningfully affect ranking behavior.
+
+* The theoretical analysis highlights an important gap in prior reasoning: cosine objectives alone do not guarantee orthogonal embedding updates once parametrization and Jacobian effects are accounted for.
+
+* The experiments provide targeted validation of the theory and illustrate representative cases where violating key assumptions leads to loss of orthogonality and less systematic update trajectories.
+
+Weaknesses
+----------
+* The paper does not include end-to-end system-level evaluation, which makes it harder to quantify practical impact.
+
+* The sufficient conditions appear restrictive in many real deployments (e.g., optimizer choices, regularization), which may limit the scope of applicability.
+
+* The paper primarily diagnoses and characterizes the phenomenon but does not propose a concrete mitigation or guidance for modifying training/serving pipelines.
+
+Comments for authors
+--------------------
+The paper makes an important conceptual clarification and, in my view, successfully motivates why the commonly assumed “cosine loss ⇒ orthogonal updates” implication can fail under parameterized embeddings. The geometry-first experiments are well aligned with the theoretical focus, and the discussion of “deep user tower + simple item tower” scenarios helps connect the analysis to a realistic design pattern.
+
+That said, to strengthen the MLSys contribution, it would be helpful to discuss how these insights translate into practical remedies or engineering guidance for existing pipelines (e.g., regularization choices, normalization strategies, optimizer/training modifications, or serving-time corrections), even if only as a set of recommended interventions and expected trade-offs.
+
+On evaluation, I would appreciate more ablations that gradually relax individual conditions to quantify how each assumption contributes to orthogonality and to the frequency–norm coupling. In particular, it would be useful to understand whether breaking a condition causes a large qualitative shift (strong bias) or only a small perturbation. Relatedly, reporting a continuous measure of the update angle distribution (rather than only a binary “orthogonal vs not”) could provide a more informative characterization of partial violations and help connect theory to practical settings.
+
+
+
+Review #720B
+===========================================================================
+
+Overall merit
+-------------
+2. Weak reject (You would prefer to reject this paper but would not
+   strongly oppose acceptance if others are positive.)
+
+Reviewer expertise
+------------------
+1. No familiarity
+
+Paper summary
+-------------
+This paper presents a theoretical analysis of popularity bias in two-tower recommendation models trained with cosine-based losses. It identifies four sufficient conditions under which item embedding updates are orthogonal to current embeddings, which lead to monotonic norm growth that correlates with item sampling frequency. The work also corrects prior claims that gradient orthogonality alone implies norm inflation for deep encoders.
+
+Strengths
+---------
+- Rigorous mathematical characterization.
+- Systematic experimental validation of theory.
+
+Weaknesses
+----------
+- Less suitable to the venue.
+
+Comments for authors
+--------------------
+Thanks for the submission. This paper provides rigorous mathematical analysis with systematic experimental validation of the theoretical premises. However, this paper appears misaligned with the MLSys venue per my understanding. The paper's contribution would be better suited for ML theory venues like ICML, NeurIPS, ICLR, or COLT, where mathematical rigor and theoretical understanding are the primary evaluation criteria.
+
+
+
+Review #720C
+===========================================================================
+
+Overall merit
+-------------
+2. Weak reject (You would prefer to reject this paper but would not
+   strongly oppose acceptance if others are positive.)
+
+Reviewer expertise
+------------------
+1. No familiarity
+
+Paper summary
+-------------
+The paper provides a theoretical analysis of two-tower models, examining key design choices such as similarity functions (dot product vs. cosine), loss, the encoder choice, and more.
+
+Strengths
+---------
+Provides useful theoretical insights into two-tower models under different design choices
+
+Weaknesses
+----------
+Empirical content is largely limited as they are not quantitative, making it difficult to draw the practical impact of the theoretical findings.
+The work does not appear to be a good fit for MLSys, as it focuses primarily on theoretical analysis.
+
+
+
+Review #720D
+===========================================================================
+
+Overall merit
+-------------
+2. Weak reject (You would prefer to reject this paper but would not
+   strongly oppose acceptance if others are positive.)
+
+Reviewer expertise
+------------------
+1. No familiarity
+
+Paper summary
+-------------
+This paper provides a theoretical analysis of popularity bias in two-tower models trained with cosine-based losses. The authors identify a precise set of sufficient conditions (parameter-linear encoders, non-shared parameters, plain SGD) under which embedding updates are provably orthogonal to the current embedding, leading to monotonic norm growth . The work corrects a misconception in prior literature (Wang et al., 2017; Draganov et al., 2024) by distinguishing between the orthogonality of the gradient and the orthogonality of the update step . Empirically, the paper demonstrates that even in asymmetric production setups (e.g., a deep user tower with a simple item tower), these conditions on the item side are sufficient to induce systematic popularity bias .
+
+Strengths
+---------
+* The paper mathematically distinguishes between gradient orthogonality ($\nabla_q \mathcal{L} \perp q$) and update orthogonality.
+* The experimental design (Table 1) effectively isolates the architectural factors driving orthogonality, showing clearly that violating assumptions leads to chaotic rather than systematic movement. Furthermore, the identification of "sufficient orthogonal displacement" (the need for a high learning rate to overcome initialization) adds a nuanced, non-obvious practical insight .
+
+Weaknesses
+----------
+* The paper explicitly excludes relevance metrics (e.g., Recall@K, MAP) to focus on geometry. For a systems venue, this is a significant omission. It remains unclear whether this popularity bias degrades retrieval quality, helps it, or is merely an artifact, making it difficult to assess the "severity" of the problem in a real-world recommendation pipeline
+
+Comments for authors
+--------------------
+**Venue Fit and Scope** While this is a strong submission with rigorous derivations, I am unconvinced that MLSys is the appropriate venue.
+
+Theory vs. Systems: The core contribution is a geometric analysis of loss landscapes and gradient updates. The paper does not address system throughput, latency, hardware utilization, distributed training efficiency, or compiler optimizations—the traditional pillars of MLSys.
+
+Recommendation: This work feels much better suited for ICML, NeurIPS, or UAI, where the audience is primarily interested in optimization dynamics and representation learning theory. In a systems conference, the lack of operational metrics (latency impact, retrieval accuracy trade-offs) makes the contribution feel somewhat misplaced.
+
+**The "So What?" for Practitioners** The paper establishes that the bias happens, but not if it matters.
+
+You explicitly state you do not report relevance metrics. However, popularity bias is often a double-edged sword in recommender systems (popular items are often good).
+
+To strengthen the systems relevance, you should discuss or show whether this norm inflation harms retrieval (e.g., by dominating dot-products solely due to magnitude) or if normalization during serving mitigates it. Without this, the "implications for production systems" remain abstract.
+
+**Question**
+Are the claims still valid with adaptive learning rates? Even if you cannot prove it analytically, empirical ablation showing the effect of Momentum $\beta > 0$ would help practitioners understand the boundaries of your claims.
