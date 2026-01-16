@@ -20,8 +20,7 @@ No. & Left (user) encoder & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left 
 \end{tabular}
 \end{table*}
 
-To clarify scope, I do not assess recommendation quality on held-out datasets and I do not report relevance metrics (e.g., MAP@k). 
-Instead, I empirically examine geometric properties of the training dynamics across encoder architectures and training designs, focusing on the orthogonality of embedding updates and the frequency–norm coupling predicted by the theory.
+To clarify scope, I do not assess recommendation quality (e.g., MAP@k), given that popularity bias can be either harmful or beneficial depending on the application context \citep{klimashevskaia2024popularitybias}. Such evaluation lies outside the contribution of this work. Instead, I empirically examine the full causal chain predicted by the theory: from the orthogonality of updates and frequency–norm coupling (geometric properties) to the resulting skewed retrieval outcomes.
 All datasets and implementation details are available in a public \href{https://docs.google.com/anonymous_link_placeholder}{GitHub repository}.
 
 \input{sections/experiments_orthogonality_factors}

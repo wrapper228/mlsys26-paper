@@ -9,7 +9,7 @@ TODO: Changes for ICML Submission
    
    WHY: Preemptively addresses potential reviewer question about whether "chaotic" means truly non-systematic or just "almost orthogonal" (if time left and paper space left - add figure)
 
-2. [conclusion.tex] Add future work mention about partial violations ✅
+2. [conclusion.tex] Add future work mention about partial violations
    
    WHERE: In Conclusion section, or create a brief "Future Work" paragraph
    
@@ -47,7 +47,7 @@ TODO: Changes for ICML Submission
    
    WHY: Directly demonstrates causal chain: freq-norm coupling → magnitude dominates → popularity bias in retrieval. The difference between dot and cosine columns shows the bias caused by magnitude. Addresses reviewer 720D question about whether norm inflation actually affects retrieval outcomes. Without cosine baseline, the dot-product number alone is not interpretable ("Is 40% high or normal?").
 
-6. [conclusion.tex] Add scope clarification about quality impact
+6. [conclusion.tex] Add scope clarification about quality impact ✅
    
    WHERE: In Conclusion or Discussion section
    
@@ -55,7 +55,7 @@ TODO: Changes for ICML Submission
    
    WHY: Preemptively addresses potential question "Does popularity bias hurt quality?" without requiring relevance metric experiments. For ICML theory track, the contribution is about mechanism, not downstream impact. This sentence acknowledges the question and explicitly places it out of scope.
 
-7. [DO NOT ADD] Practical guideline for practitioners
+7. [DO NOT ADD] Practical guideline for practitioners ✅
    
    CONSIDERED: Adding explicit advice like "if you don't want this popularity bias, avoid training designs that mathematically guarantee it"
    
