@@ -1,7 +1,7 @@
 TODO: Changes for ICML Submission
 ==================================
 
-1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated
+1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated ❓
    
    WHERE: At the end of the paragraph "If the encoder is nonlinear in the parameters:" or after discussing chaotic movement
    
@@ -9,7 +9,7 @@ TODO: Changes for ICML Submission
    
    WHY: Preemptively addresses potential reviewer question about whether "chaotic" means truly non-systematic or just "almost orthogonal" (if time left and paper space left - add figure)
 
-2. [conclusion.tex] Add future work mention about partial violations
+2. [conclusion.tex] Add future work mention about partial violations ✅
    
    WHERE: In Conclusion section, or create a brief "Future Work" paragraph
    
@@ -34,7 +34,7 @@ TODO: Changes for ICML Submission
    CHANGE TO: "Two-tower models may exhibit popularity bias: a positive correlation between item frequency and embedding norm inflates dot-product scores for popular items at ranking, making magnitude dominate over directional similarity in the retrieval outcomes."
    
    WHY: Current "observed as" conflates cause (coupling) and effect (bias). New version makes causal chain explicit and clarifies the mechanism (magnitude vs direction). Important for ICML theory track precision. Note: the colon after 'popularity bias' still introduces a definition - popularity bias is defined through its effect (inflated scores for popular items), which is more precise than defining it through the observed artifact (correlation).
-5. [experiments table with Exp 8-10] Add two columns showing popularity bias in retrieval outcomes
+5. [experiments table with Exp 8-10] Add two columns showing popularity bias in retrieval outcomes ✅
    
    WHERE: Table with experiments 8-10 (popularity bias experiments)
    

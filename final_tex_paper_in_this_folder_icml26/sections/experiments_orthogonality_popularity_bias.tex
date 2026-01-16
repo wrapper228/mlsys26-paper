@@ -1,21 +1,21 @@
 \subsection{Does Orthogonality of Embedding Movement Imply Popularity Bias?}
 
 \begin{table*}[!t]
-\caption{Last two subsections of experiments — the emergence and detectability of popularity bias. Exp. 8 and 9 report whether the displacement is sufficient and whether popularity bias is observed. Exp. 10 demonstrates a production-like asymmetric setup, which corroborates the same mechanism for item popularity bias.\\}\label{tab:orthogonality-popbias}
+\caption{Last two subsections of experiments — the emergence and detectability of popularity bias. Exp. 8 and 9 report whether displacement is sufficient and quantify popularity bias both as a geometric frequency–norm correlation and as a retrieval skew. The retrieval bias is measured as the share of popular items (from the top-1\% by training frequency) appearing in the top-100 recommendations. Exp. 10 demonstrates that this mechanism persists in a production-like asymmetric setup.\\}\label{tab:orthogonality-popbias}
 \centering
 \small
-\begin{tabular}{@{}cccccccc@{}}
+\begin{tabular}{@{}ccccccccc@{}}
 \toprule
-No. & \begin{tabular}{@{}c@{}} Left (user) \\ encoder \end{tabular} & Loss & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & \begin{tabular}{@{}c@{}} Orthogonal \\ trajectory? \end{tabular} & \begin{tabular}{@{}c@{}} Sufficient orthogonal \\ displacement? \end{tabular} & \begin{tabular}{@{}c@{}} Popularity \\ bias for item? \end{tabular} \\
+No. & \begin{tabular}{@{}c@{}} Left (user) \\ encoder \end{tabular} & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & \begin{tabular}{@{}c@{}} Orthogonal \\ trajectory? \end{tabular} & \begin{tabular}{@{}c@{}} Suff. orthogonal \\ displacement? \end{tabular} & \begin{tabular}{@{}c@{}} Item Pop--Norm \\ Correlation? \end{tabular} & \begin{tabular}{@{}c@{}} Top-1\% \\ (dot) \end{tabular} & \begin{tabular}{@{}c@{}} Top-1\% \\ (cos) \end{tabular} \\
 \midrule
-8 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high learning rate) \end{tabular} & $\checkmark$ \\
-9 & Embedding & InfoNCE (cos) & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\times$ \\ (low learning rate) \end{tabular} & $\times$ \\
-10 & \begin{tabular}{@{}c@{}} BERT-like (with\\Adam optimizer) \end{tabular} & InfoNCE (cos) & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$\\Item $\checkmark$ \end{tabular} & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high learning rate) \end{tabular} & $\checkmark$ \\
+8 & Embedding & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high LR) \end{tabular} & $\checkmark$ & \textbf{0.72} & 0.29 \\
+9 & Embedding & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\times$ \\ (low LR) \end{tabular} & $\times$ & 0.007 & 0.007 \\
+10 & \begin{tabular}{@{}c@{}} BERT-like (with\\Adam optimizer) \end{tabular} & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$\\Item $\checkmark$ \end{tabular} & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high LR) \end{tabular} & $\checkmark$ & \textbf{0.63} & 0.32 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-See Table~\ref{tab:orthogonality-popbias}. In this subsection I use MovieLens 32M dataset.
+See Table~\ref{tab:orthogonality-popbias}. In this subsection I use MovieLens 32M dataset and the same InfoNCE cosine-based loss.
 
 In Experiments~8 and~9 I test whether the orthogonality property leads to the emergence of popularity bias. 
 
@@ -24,4 +24,6 @@ In Experiments~8 and~9 I test whether the orthogonality property leads to the em
 \textit{Nuance.} I identify an important factor required for the appearance of popularity bias under orthogonal movement: embeddings must move with sufficiently large orthogonal displacement. Purely tangential movement over very short distances yields almost no increase in the embedding norm (by the Pythagorean theorem) and cannot overcome the random norm at initialization. In Experiment~8 I increased the learning rate of the SGD optimizer so that objects moved over larger distances; with a commonly used smaller learning rate (LR $=0.1$) objects moved extremely slowly and effectively did not leave their previous-radius hyperspheres, and I did not observe a statistically significant popularity–norm correlation (Experiment~9).
 
 This finding is consistent with the analysis from Section~\ref{sec:norm-monotonicity}.
+
+The last two columns of Table~\ref{tab:orthogonality-popbias} confirm that this geometric phenomenon translates directly into retrieval outcomes. In Experiment~8, where norms grow orthogonally, the share of popular items in the top-100 results is drastically higher for dot-product ranking (72\%) compared to cosine (29\%). Conversely, in Experiment~9, where norms barely change, both ranking methods yield identical distributions ($\approx$0.7\%).
 
