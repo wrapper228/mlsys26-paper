@@ -1,7 +1,7 @@
 TODO: Changes for ICML Submission
 ==================================
 
-1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated ❓
+1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated ❓ ITS NEEDED BECAUSE "but what if breaking 1-4 a little does not absolutely break orth?"
    
    WHERE: At the end of the paragraph "If the encoder is nonlinear in the parameters:" or after discussing chaotic movement
    
