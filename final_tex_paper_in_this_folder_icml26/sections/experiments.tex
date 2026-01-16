@@ -24,5 +24,21 @@ To clarify scope, I do not assess recommendation quality (e.g., MAP@k), given th
 All datasets and implementation details are available in a public \href{https://docs.google.com/anonymous_link_placeholder}{GitHub repository}.
 
 \input{sections/experiments_orthogonality_factors}
+
+\begin{table*}[!t]
+\caption{Last two subsections of experiments — the emergence and detectability of popularity bias. Exp. 8 and 9 report whether displacement is sufficient and quantify popularity bias both as a geometric frequency–norm correlation and as a retrieval skew. The retrieval bias is measured as the share of popular items (from the top-1\% by training frequency) appearing in the top-100 recommendations. Exp. 10 demonstrates that this mechanism persists in a production-like asymmetric setup.\\}\label{tab:orthogonality-popbias}
+\centering
+\small
+\begin{tabular}{@{}ccccccccc@{}}
+\toprule
+No. & \begin{tabular}{@{}c@{}} Left (user) \\ encoder \end{tabular} & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & \begin{tabular}{@{}c@{}} Orthogonal \\ trajectory? \end{tabular} & \begin{tabular}{@{}c@{}} Suff. orthogonal \\ displacement? \end{tabular} & \begin{tabular}{@{}c@{}} Item Pop--Norm \\ Correlation? \end{tabular} & \begin{tabular}{@{}c@{}} Top-1\% \\ (dot) \end{tabular} & \begin{tabular}{@{}c@{}} Top-1\% \\ (cos) \end{tabular} \\
+\midrule
+8 & Embedding & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high LR) \end{tabular} & $\checkmark$ & \textbf{0.72} & 0.29 \\
+9 & Embedding & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\times$ \\ (low LR) \end{tabular} & $\times$ & 0.007 & 0.007 \\
+10 & \begin{tabular}{@{}c@{}} BERT-like (with\\Adam optimizer) \end{tabular} & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$\\Item $\checkmark$ \end{tabular} & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high LR) \end{tabular} & $\checkmark$ & \textbf{0.63} & 0.32 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 \input{sections/experiments_orthogonality_popularity_bias}
 \input{sections/experiments_practical_two_tower_bias}

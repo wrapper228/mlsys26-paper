@@ -1,20 +1,5 @@
 \subsection{Does Orthogonality of Embedding Movement Imply Popularity Bias?}
 
-\begin{table*}[!t]
-\caption{Last two subsections of experiments — the emergence and detectability of popularity bias. Exp. 8 and 9 report whether displacement is sufficient and quantify popularity bias both as a geometric frequency–norm correlation and as a retrieval skew. The retrieval bias is measured as the share of popular items (from the top-1\% by training frequency) appearing in the top-100 recommendations. Exp. 10 demonstrates that this mechanism persists in a production-like asymmetric setup.\\}\label{tab:orthogonality-popbias}
-\centering
-\small
-\begin{tabular}{@{}ccccccccc@{}}
-\toprule
-No. & \begin{tabular}{@{}c@{}} Left (user) \\ encoder \end{tabular} & \begin{tabular}{@{}c@{}} Cond.~1 for \\ left encoder? \end{tabular} & Cond.~2? & \begin{tabular}{@{}c@{}} Orthogonal \\ trajectory? \end{tabular} & \begin{tabular}{@{}c@{}} Suff. orthogonal \\ displacement? \end{tabular} & \begin{tabular}{@{}c@{}} Item Pop--Norm \\ Correlation? \end{tabular} & \begin{tabular}{@{}c@{}} Top-1\% \\ (dot) \end{tabular} & \begin{tabular}{@{}c@{}} Top-1\% \\ (cos) \end{tabular} \\
-\midrule
-8 & Embedding & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high LR) \end{tabular} & $\checkmark$ & \textbf{0.72} & 0.29 \\
-9 & Embedding & $\checkmark$ & $\checkmark$ & $\checkmark$ & \begin{tabular}{@{}c@{}} $\times$ \\ (low LR) \end{tabular} & $\times$ & 0.007 & 0.007 \\
-10 & \begin{tabular}{@{}c@{}} BERT-like (with\\Adam optimizer) \end{tabular} & $\times$ & $\checkmark$ & \begin{tabular}{@{}c@{}} User $\times$\\Item $\checkmark$ \end{tabular} & \begin{tabular}{@{}c@{}} $\checkmark$ \\ (high LR) \end{tabular} & $\checkmark$ & \textbf{0.63} & 0.32 \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
 See Table~\ref{tab:orthogonality-popbias}. In this subsection I use MovieLens 32M dataset and the same InfoNCE cosine-based loss.
 
 In Experiments~8 and~9 I test whether the orthogonality property leads to the emergence of popularity bias. 

@@ -9,12 +9,26 @@ Condition~2: the gradient of the loss with respect to the encoder output is orth
 \textit{Clarifications.} In all experiments the right tower (item tower) is a simple embedding layer (nn.Embedding); InfoNCE \cite{oord2018cpc} denotes the contrastive softmax loss with in-batch negatives, where ``cos'' (resp., ``dot'') refers to cosine (resp., dot-product) similarity. I use SGD without momentum and without regularization; alternative optimizers did not reveal any movement patterns, although I will separately consider mixed-optimizer settings, including Adam, later (see Experiment~10). In Experiment~4 the architecture coincides with one-hot $\to$ Linear $\to$ Linear, i.e., simply two linear layers. The architecture in Experiment~5 is an example of an encoder that consists of a single Linear layer without the input-orthogonality requirement (no one-hot inputs): the inputs are just some numeric features.
 
 \paragraph{If the encoder is nonlinear in the parameters:}
-Recall that two linear layers constitute nonlinearity with respect to the model parameters. I argued that due to this nonlinearity one cannot obtain an analytical explanation of how exactly embeddings move. The result of Experiment~4 is consistent with this reasoning: unlike Experiments~1 and~6, here the embeddings from the left encoder move chaotically.
+Recall that two linear layers constitute nonlinearity with respect to the model parameters. I argued that due to this nonlinearity one cannot obtain an analytical explanation of how exactly embeddings move. The result of Experiment~4 is consistent with this reasoning: unlike Experiments~1 and~6, here the embeddings from the left encoder move chaotically (see Figure~\ref{fig:exp4-angles}).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=.95\columnwidth]{figures/figure_3_paper.pdf}
+\caption{Experiment~4: User-update angles distribution on semicircle; black arrow is user embedding, green arrow is orthogonal direction.}
+\label{fig:exp4-angles}
+\end{figure}
 
 \paragraph{If, in a parameter-linear encoder, the inputs are not mutually orthogonal:}
-Recall that linearity of the encoder is still insufficient to guarantee orthogonal movement of embeddings, and consider the result of Experiment~5: embeddings produced by the left encoder move chaotically. This agrees with my statement that, for orthogonality of embedding movement, each unique input to the encoder must have its own parameter row that does not intersect with others. I was able to identify only two (essentially identical) architectures where this holds — a linear layer over one-hot vectors (Experiment~6) or an embedding layer (Experiment~1).
+Recall that linearity of the encoder is still insufficient to guarantee orthogonal movement of embeddings, and consider the result of Experiment~5: embeddings produced by the left encoder move chaotically (see Figure~\ref{fig:exp5-angles}). This agrees with my statement that, for orthogonality of embedding movement, each unique input to the encoder must have its own parameter row that does not intersect with others. I was able to identify only two (essentially identical) architectures where this holds — a linear layer over one-hot vectors (Experiment~6) or an embedding layer (Experiment~1).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=.95\columnwidth]{figures/figure_4_paper.pdf}
+\caption{Experiment~5: User-update angles distribution on semicircle; black arrow is user embedding, green arrow is orthogonal direction.}
+\label{fig:exp5-angles}
+\end{figure}
 
 \paragraph{If a different loss is used:}
 The result of Experiment~7 does not contradict my statement that the gradient of any cosine-based loss with respect to the encoder output is orthogonal to that output.
 
-Overall, these experiments confirm that strict orthogonality requires precise conditions: violations lead to non-systematic, chaotic movement. While I classify movement here as binary (orthogonal vs. chaotic), characterizing the continuous degree of degradation under partial violations remains an interesting direction for future work.
+Overall, these experiments confirm that strict orthogonality requires precise conditions: violations lead to non-systematic, chaotic movement. For example, the angle distribution for Experiments~4 and~5 (Figures~\ref{fig:exp4-angles} and~\ref{fig:exp5-angles}) shows no strong concentration around $90°$ (share within $\pm 10°$: $\approx$20\%) and spans the full range $[0°, 180°]$.

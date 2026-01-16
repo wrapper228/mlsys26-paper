@@ -19,7 +19,7 @@ as a popularity prior, dominating the directional similarity. Figure~\ref{fig:po
 training: while cosine-based retrieval acts as a magnitude-agnostic baseline, dot-product retrieval becomes progressively more biased as embedding norms grow orthogonally.
 
 \begin{figure*}[t]
-\includegraphics[width=\textwidth]{figures/figure_3_paper.pdf}
+\includegraphics[width=\textwidth]{figures/figure_5_paper.pdf}
 \caption{Dynamics of popularity bias in a production-like asymmetric setup (Experiment 10: BERT User Tower + Simple Item Tower). As training progresses, the item embedding norms grow (due to orthogonal updates), causing the share of popular items in dot-product retrieval to diverge sharply from the cosine baseline.}
 \label{fig:pop-bias-dynamics}
 \end{figure*}
