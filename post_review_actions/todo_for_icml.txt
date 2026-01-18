@@ -1,7 +1,7 @@
 TODO: Changes for ICML Submission
 ==================================
 
-1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated ❓ ITS NEEDED BECAUSE "but what if breaking 1-4 a little does not absolutely break orth?"
+1. [experiments_orthogonality_factors.tex] Add clarification about angle distribution when conditions are violated ✅ ITS NEEDED BECAUSE "but what if breaking 1-4 a little does not absolutely break orth?"
    
    WHERE: At the end of the paragraph "If the encoder is nonlinear in the parameters:" or after discussing chaotic movement
    
@@ -81,7 +81,7 @@ TODO: Changes for ICML Submission
    This observation is particularly relevant for the iterative development of recommender systems, where practitioners typically begin with such clean baselines to validate pipelines. Our analysis suggests a hidden pitfall in this standard workflow: these baselines are uniquely predisposed to maximal popularity bias due to their geometric transparency. This creates a risk of false negative evaluations early in the development cycle, where a project might be discarded for 'learning only popularity', when in fact this behavior is an optimization artifact of the baseline's simplicity rather than a fundamental limitation of the data.
 
 
-8. [introduction.tex] Add brief mention of alternative mechanisms for popularity bias
+8. [introduction.tex] Add brief mention of alternative mechanisms for popularity bias ✅
    
    WHERE: After the paragraph "Scope and implications" in Introduction
    
