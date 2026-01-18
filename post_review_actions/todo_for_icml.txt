@@ -98,6 +98,6 @@ TODO: Changes for ICML Submission
 
 12. broken fonts on <why “larger pi”>
 
-13. fix A1-A4 (and order) in introduction
+13. fix A1-A4 (and order) in introduction ✅
 
-14. should introduction be appended by my new contributions? (new - compared to mlsys26 version of paper)
+14. should introduction be appended by my new contributions? (new - compared to mlsys26 version of paper) ✅
