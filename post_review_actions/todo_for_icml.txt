@@ -96,7 +96,7 @@ TODO: Changes for ICML Submission
 
 11. careful with how detailed I formulate links to appendix (I should tell explicitly in main paper body whats being proven or stated in appendix).
 
-12. broken fonts on <why “larger pi”>
+12. broken fonts on <why “larger pi”> + too long formulas ✅
 
 13. fix A1-A4 (and order) in introduction ✅
 

@@ -21,7 +21,7 @@ Here $J_i$ is a $d \times (N\!\cdot\! d)$ table that shows how each output coord
 
 Equivalently, all entries are zero except the $d\times d$ block corresponding to row $i$, which is the identity $I_d$:
 \begin{align}
-J_i \,=\, \Bigl[\, \underbrace{0_{d\times (i-1)d}}_{\text{params }1\ldots(i-1)} \;\Big|\; \underbrace{I_d}_{\text{params of row }i} \;\Big|\; \underbrace{0_{d\times (N-i)d}}_{\text{params }(i+1)\ldots N} \Bigr].
+J_i \,=\, \Bigl[\, \underbrace{0_{d\times (i-1)d}}_{\text{params }1\ldots(i-1)} \;\Big|\; \underbrace{I_d}_{\text{params of }i} \;\Big|\; \underbrace{0_{d\times (N-i)d}}_{\text{params }(i+1)\ldots N} \Bigr].
 \end{align}
 Thus $J$ does not depend on $\theta$, and the encoder is parameter-linear.
 
@@ -57,13 +57,13 @@ Hence $J$ depends on the input $x_i$ but not on $\theta$, so this encoder is par
 
 Let $m$ denote an output coordinate of $q_i$. Let $m',n'$ be arbitrary row/column indices in $B$, and $r',s'$ indices in $A$.
 
-\textbf{W.r.t. $B$:}
+\textbf{W.r.t. \boldmath$B$\unboldmath{}:}
 \begin{align}
 \frac{\partial q_{i,m}}{\partial B_{m',n'}} 
 = \begin{cases} z_{i,n'}, & m' = m, \\ 0, & \text{otherwise.} \end{cases}
 \end{align}
 
-\textbf{W.r.t. $A$:}
+\textbf{W.r.t. \boldmath$A$\unboldmath{}:}
 \begin{align}
 \frac{\partial q_{i,m}}{\partial A_{r',s'}} = B_{m,r'}\,x_{i,s'} .
 \end{align}

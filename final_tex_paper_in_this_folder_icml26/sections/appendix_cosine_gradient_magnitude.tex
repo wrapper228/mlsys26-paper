@@ -1,7 +1,7 @@
 \section{Gradient Magnitude under Cosine-Based Loss}
 \label{app:cosine-growth-rate}
 
-\textbf{The bigger $q$, the smaller the norm of the gradient of a cosine-based loss with respect to $q$.}
+\textbf{The bigger \boldmath$q$\unboldmath{}, the smaller the norm of the gradient of a cosine-based loss with respect to \boldmath$q$\unboldmath{}.}
 
 \emph{Why this matters.} This creates a counter-effect: “the larger the embedding, the slower it grows.” This effect will be used in Appendix~\ref{app:popularity-dependence} for analyzing norm growth of popular items.
 
@@ -70,7 +70,10 @@ u &= \sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,\hat k_i, \\
 \end{equation}
 Because $P$ is an orthogonal projector ($P^{\!\top}=P$, $P^2=P$),
 \begin{equation}
-\bigl\|P u\bigr\|^{2} \,=\, u^{\!\top} P u \,=\, u^{\!\top}(I - \hat q\,\hat q^{\!\top})u \,=\, \|u\|^{2} - (\hat q^{\!\top}u)^{2}.
+\begin{aligned}
+\bigl\|P u\bigr\|^{2} &\,=\, u^{\!\top} P u \\
+&\,=\, u^{\!\top}(I - \hat q\,\hat q^{\!\top})u \,=\, \|u\|^{2} - (\hat q^{\!\top}u)^{2}.
+\end{aligned}
 \end{equation}
 Hence,
 \begin{equation}
