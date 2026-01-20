@@ -6,7 +6,7 @@ Let the base distribution for all items be $p$. For the set of non-$i$ items ($k
 r_k \,=\, \frac{p_k}{1 - p_i} \qquad (k \ne i).
 \end{equation}
 
-Consider a single generation slot. I use a shared uniform random variable $U \sim \mathrm{Uniform}(0,1)$ and a categorical draw over non-$i$ items $Z \sim \mathrm{Cat}(\boldsymbol r)$:
+Consider a single generation slot. We use a shared uniform random variable $U \sim \mathrm{Uniform}(0,1)$ and a categorical draw over non-$i$ items $Z \sim \mathrm{Cat}(\boldsymbol r)$:
 \begin{equation}
 X^{(p)} \,=\, \begin{cases}
  i, & U \le p, \\

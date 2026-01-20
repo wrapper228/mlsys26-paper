@@ -6,7 +6,7 @@
 \emph{Why this matters.} This creates a counter-effect: “the larger the embedding, the slower it grows.” This effect will be used in Appendix~\ref{app:popularity-dependence} for analyzing norm growth of popular items.
 
 \medskip
-\noindent\textbf{Derivation.} I begin with the formula from Appendix~\ref{app:cos-orth-lemma}:
+\noindent\textbf{Derivation.} We begin with the formula from Appendix~\ref{app:cos-orth-lemma}:
 \begin{equation}
 \label{eq:grad-cos-base}
 \begin{aligned}
@@ -83,7 +83,7 @@ Hence,
 \end{aligned}
 \end{equation}
 
-Here I note that, as the embedding norm grows, the gradient norm decreases:
+Here we note that, as the embedding norm grows, the gradient norm decreases:
 \begin{itemize}
   \item the denominator is the embedding norm $\|q\|$;
   \item the numerator does not depend on $\|q\|$: when computing $u$, $q$ appears only inside the derivative $\partial F/\partial c_i$ (through the cosines). A pure rescaling of $q$ does not change the cosines; therefore the input to $F$ does not change, and the derivatives $\partial F/\partial c_i$ do not depend on $\|q\|$.

@@ -1,6 +1,6 @@
 \subsection{For Some Linear Encoders, the Embedding Update Is Collinear with the Loss Gradient}
 
-Drawing on equation \eqref{eq:starting-formula}, I now characterize when the embedding displacement is collinear with the output gradient: 
+Drawing on equation \eqref{eq:starting-formula}, we now characterize when the embedding displacement is collinear with the output gradient: 
 \begin{align}
 \Delta q_{i} \,=\, J_{i}\,\Delta\theta \,=\, -\eta\,\sum_{j} J_{i}\,J_{j}^{\!\top}\,g_{j} \label{eq:collinearity-master}
 \end{align}
@@ -50,6 +50,6 @@ which is again collinear with $g_i$.
 These cases illustrate a general principle: whenever $J_{i}J_{j}^{\!\top}$ is diagonal in the sense of \(J_{i}J_{j}^{\!\top} = \alpha_{ij} I_d\) with $\alpha_{ij}=0$ for $j\neq i$, the embedding update aligns with the output gradient. In particular, with one-hot features (orthogonal inputs), a bias-free linear layer and an embedding lookup are equivalent mappings up to implementation (matrix multiplication versus table lookup).
 
 \paragraph{Beyond linear encoders.}\label{sec:beyond-linear}
-For encoders which are not parameter-linear, I am not aware of natural conditions under which (i) and (ii) hold, even when the first-order approximation $\Delta q_i \approx J_i\,\Delta\theta$ is accurate (e.g., under small learning rates). In practice, non-linearity perturbs $J_i$ in an input- and parameter-dependent way that breaks both the cross-term annihilation (i) and the isotropy (ii). See Figure~\ref{fig:sec2-mindmap} for a mind map of conditions for collinearity.
+For encoders which are not parameter-linear, we are not aware of natural conditions under which (i) and (ii) hold, even when the first-order approximation $\Delta q_i \approx J_i\,\Delta\theta$ is accurate (e.g., under small learning rates). In practice, non-linearity perturbs $J_i$ in an input- and parameter-dependent way that breaks both the cross-term annihilation (i) and the isotropy (ii). See Figure~\ref{fig:sec2-mindmap} for a mind map of conditions for collinearity.
 
 

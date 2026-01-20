@@ -2,7 +2,7 @@
 
 The equation developed above is a \emph{linear approximation} of the embedding dynamics during training. For parameter-linear encoders this linearization is exact: for each example $i$ the map from parameters to the output satisfies $q_i(\theta)=J_i\,\theta$, and hence equation \eqref{eq:starting-formula} holds without approximation.
 
-For non-linear encoders, the relation $\Delta q_i \approx J_i\,\Delta\theta$ remains accurate under sufficiently small learning rates. I postpone a full treatment of the additional constraints imposed by non-linear architecture to Section~\ref{sec:beyond-linear} (\emph{Beyond linear encoders}).
+For non-linear encoders, the relation $\Delta q_i \approx J_i\,\Delta\theta$ remains accurate under sufficiently small learning rates. We postpone a full treatment of the additional constraints imposed by non-linear architecture to Section~\ref{sec:beyond-linear} (\emph{Beyond linear encoders}).
 
 \begin{figure*}[t]
 \includegraphics[width=\textwidth]{figures/figure_1_paper.pdf}

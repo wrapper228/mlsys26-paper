@@ -8,7 +8,7 @@ after which they immediately make the logical transition
 \end{quote}
 That is, they implicitly assume that if the loss gradient with respect to the model output is orthogonal to the model output, then this output itself also moves orthogonally. This transition is not obvious: it switches from orthogonality of the gradient to orthogonality of the embedding displacement itself.
 
-Such orthogonality of the step is guaranteed only under a sufficiently strict set of conditions. I write these conditions explicitly and show that, when they are satisfied, embeddings do move orthogonally; outside this region the transition from orthogonality of the gradient to orthogonality of the embedding displacement (and hence to monotone growth of the embedding norm) may fail. Consequently, the motivation for modifying training \emph{because the update increases the point's norm} should be treated as a qualified claim: it is true in the configurations described by my conditions, but it is not a universal basis for changing how encoders are trained—especially deeper ones.
+Such orthogonality of the step is guaranteed only under a sufficiently strict set of conditions. We write these conditions explicitly and show that, when they are satisfied, embeddings do move orthogonally; outside this region the transition from orthogonality of the gradient to orthogonality of the embedding displacement (and hence to monotone growth of the embedding norm) may fail. Consequently, the motivation for modifying training \emph{because the update increases the point's norm} should be treated as a qualified claim: it is true in the configurations described by our conditions, but it is not a universal basis for changing how encoders are trained—especially deeper ones.
 
 The same critique applies to \cite{draganov2024pitfalls, draganov2025embeddingnorms}. 
 In particular, the former states:
@@ -34,6 +34,6 @@ It should be acknowledged that in Appendix~B they provide a qualification, stati
 \end{quote}
 which implies a shallow architecture such as an Embedding Layer; however, this architectural restriction (if intended) is fixed only in the appendix, while the main text presents the correctness of the previous claim without specifying the architecture.
 
-When the conditions above do hold, my analytic proof of orthogonal embedding displacement indeed implies growth of the embedding norm (by the Pythagorean theorem). A natural question then arises: how should this growth be evaluated analytically?
+When the conditions above do hold, our analytic proof of orthogonal embedding displacement indeed implies growth of the embedding norm (by the Pythagorean theorem). A natural question then arises: how should this growth be evaluated analytically?
 
 
