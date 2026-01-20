@@ -1,5 +1,11 @@
 \subsection{Popularity Bias in Practical Two-Tower Setup}
 
+\begin{figure*}[t]
+\includegraphics[width=\textwidth]{figures/figure_5_paper.pdf}
+\caption{Dynamics of popularity bias in a production-like asymmetric setup (Experiment 10: BERT User Tower + Simple Item Tower). As training progresses, the item embedding norms grow (due to orthogonal updates), causing the share of popular items in dot-product retrieval to diverge sharply from the cosine baseline.}
+\label{fig:pop-bias-dynamics}
+\end{figure*}
+
 Here I consider an asymmetric two-tower model that is close to a production training design (Experiment 10, Table~\ref{tab:orthogonality-popbias}, same MovieLens 32M dataset and InfoNCE cosine-based loss): the left tower is a deep BERT over the user's history \cite{sun2019bert4rec}; the right tower is, again, a simple embedding layer over the item identifier. 
 Using such a simple architecture for item tower is a popular scenario when representing an item without convolutions and content features is an intentional design choice. 
 For instance, such an approach was adopted for YouTube \cite{covington2016youtube} by using a trainable item (class) embedding as the input to a softmax loss; 
@@ -17,11 +23,3 @@ Given sufficiently large orthogonal displacement (e.g., LR=10 for item tower), a
 Furthermore, this norm inflation directly skews retrieval results. As shown in Table~\ref{tab:orthogonality-popbias} (Experiment 10), the share of popular items in the top-100 recommendations is nearly doubled when ranking by dot product (63\%) compared to cosine similarity (32\%). This gap confirms that the learned norms act 
 as a popularity prior, dominating the directional similarity. Figure~\ref{fig:pop-bias-dynamics} illustrates the dynamics of this effect during 
 training: while cosine-based retrieval acts as a magnitude-agnostic baseline, dot-product retrieval becomes progressively more biased as embedding norms grow orthogonally.
-
-\begin{figure*}[t]
-\includegraphics[width=\textwidth]{figures/figure_5_paper.pdf}
-\caption{Dynamics of popularity bias in a production-like asymmetric setup (Experiment 10: BERT User Tower + Simple Item Tower). As training progresses, the item embedding norms grow (due to orthogonal updates), causing the share of popular items in dot-product retrieval to diverge sharply from the cosine baseline.}
-\label{fig:pop-bias-dynamics}
-\end{figure*}
-
-
