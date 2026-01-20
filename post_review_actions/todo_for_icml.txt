@@ -92,7 +92,7 @@ TODO: Changes for ICML Submission
 
 9. change first-person ("I") to third-person ("we")
 
-10. think about abstract length
+10. think about abstract length ✅
 
 11. careful with how detailed I formulate links to appendix (I should tell explicitly in main paper body whats being proven or stated in appendix).
 
