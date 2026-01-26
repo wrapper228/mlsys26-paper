@@ -14,9 +14,7 @@ Under (i)–(ii) the sum in \eqref{eq:collinearity-master} reduces to
 \begin{align}
 \Delta q_i \,=\, -\eta\,\alpha_i\, g_i,
 \end{align}
-that is, the update is a scalar multiple of $g_i$.
-
-A concise way to view this requirement is parameter separability: \emph{each distinct input $x_i$ must own a non–shared parameter row} so that perturbations tied to other inputs do not enter $\Delta q_i$.
+that is, the update is a scalar multiple of $g_i$. Non-shared parameter rows ensure (i), and (ii) holds for the two lookup-equivalent cases below.
 
 \paragraph{Single embedding layer.}
 For a single embedding layer (Appendix~\ref{app:embed}),
