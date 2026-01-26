@@ -1,0 +1,30 @@
+% Introduction
+\section{Introduction}
+Two-tower architectures are the de facto standard for large-scale retrieval and recommendation \cite{huang2024retrievalsurvey}. Their efficiency stems from decoupling the user and item encoders and scoring by a simple similarity, which enables precomputation, approximate nearest-neighbor search, and low-latency serving at web-scale. Yet the role of embedding magnitudes in training and ranking remains under-characterized: empirical observations vary across systems, and theory has not reached consensus on when and why norms change under different objectives and optimizers.
+
+From the definition of cosine similarity, \(\cos(q,k)=\langle q,k\rangle/(\|q\|\,\|k\|)\), the normalization appears to cancel the effect of magnitudes, so objectives that couple the left and right encoder embeddings only through cosine similarity are expected to be insensitive to embedding norms. A competing line of analysis argues \cite{wang2017normface,draganov2024pitfalls,draganov2025embeddingnorms} that for cosine-based losses the gradient \(\nabla_{q}\,\mathcal{L}\) is orthogonal to \(q\), and therefore any gradient step must increase \(\|q\|\), often extrapolated to deep encoders. Both perspectives ignore how parameter updates propagate through the encoder and do not explicitly state the algorithmic and architectural conditions under which norm growth necessarily occurs.
+
+We replace black-box reasoning with an update-level analysis. We track how parameter updates map to item-embedding displacements and prove that, under explicit and testable premises — the item encoder is linear in its parameters with non-shared per-item parameters; the item side is trained by plain SGD; and the loss uses the item embedding only via cosine similarities — each step moves the embedding orthogonally to its current value and thus monotonically increases its squared norm. Building on this, we formalize a frequency--norm mechanism: under a clean coupling model (Appendix~\ref{app:popularity-dependence}), the expected squared norm is nondecreasing in the item's sampling probability, yielding a concrete mechanism for popularity bias in two-tower systems.
+
+The analysis also delineates the limits of claims that ``gradient orthogonality implies norm inflation'' for deep encoders \cite{wang2017normface,draganov2024pitfalls,draganov2025embeddingnorms}. Orthogonality of the output gradient is insufficient on its own; orthogonality of the \emph{update} follows only when the encoder's Jacobian preserves it, which holds precisely under the stated premises. Violating any premise — adding nonlinearities or parameter sharing in the item tower or optimizing dot product — breaks the guarantee and leads to non-systematic norm dynamics. Our contributions are:
+
+\begin{itemize}
+    \item \textbf{Explanation of sufficient conditions for orthogonality of embedding updates.} We prove that 
+    embeddings move orthogonally under the following premises: (A1) the item side is optimized by 
+    SGD without regularization and momentum; (A2) the item encoder is linear in its parameters; 
+    (A3) per-item parameters are not shared; and (A4) the loss depends on the item only via cosine. 
+    Orthogonality breaks if any premise is violated.
+    \item \textbf{Explanation of why orthogonality of embedding updates implies popularity bias.} We prove that 
+    orthogonal movement yields a frequency--norm coupling: under a clean coupling model, more popular items have larger expected squared embedding norms. Crucially, 
+    we demonstrate that this geometric artifact translates directly into popularity biased retrieval 
+    outcomes.
+    \item \textbf{Clarification of prior claims in the literature.} We re-examine claims from studies on similar 
+    topic \cite{wang2017normface,draganov2024pitfalls,draganov2025embeddingnorms} and argue that gradient 
+    update affects the model parameters, not its output itself.
+    \item \textbf{The ``Baseline Paradox'' in architectural design.} We identify a structural paradox where 
+    simple baselines, favored for their transparency in early development, are mathematically guaranteed to 
+    exhibit bias. This creates a risk of false negatives (discarding viable projects due to optimization 
+    artifacts), though complex production setups remain vulnerable too.
+\end{itemize}
+
+\paragraph{Scope and implications.} We establish sufficient conditions under which embedding updates are orthogonal and popularity bias emerges. Outside this regime, these effects may or may not occur; we make no claim of necessity. Other sources of popularity bias are examined in prior work \cite{zhang2023dimensional}.

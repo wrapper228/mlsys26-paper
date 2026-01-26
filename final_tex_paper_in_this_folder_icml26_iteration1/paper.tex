@@ -1,0 +1,79 @@
+\documentclass{article}
+
+% Recommended packages for figures and better typesetting
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% Attempt to make hyperref and algorithmic work together better
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% ICML 2026 style
+\usepackage{icml2026}
+
+% Math packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Running title (short)
+\icmltitlerunning{Theoretical Grounds for Popularity Bias in Two-Tower Models}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{Theoretical Grounds for Popularity Bias in Two-Tower Models Trained with Cosine-Based Loss}
+
+  % Author and affiliation block (kept in source; hidden in blind review)
+  \icmlsetsymbol{equal}{*}
+  \begin{icmlauthorlist}
+    \icmlauthor{Andrey Atamanyuk}{wb}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{wb}{Wildberries and Russ, Russia}
+  \icmlcorrespondingauthor{Andrey Atamanyuk}{atamanyuk.andrey@rwb.ru}
+
+  % Keywords are optional
+  \icmlkeywords{Representation learning, Two-tower models, Embedding norms}
+
+  \vskip 0.3in
+]
+
+% Footnote line (hidden unless [accepted])
+\printAffiliationsAndNotice{}
+
+\begin{abstract}
+  Two-tower models may exhibit popularity bias: a positive correlation between item frequency and embedding norm inflates dot-product scores for popular items, making magnitude dominate over directional similarity in the retrieval outcomes. This phenomenon is due to specific properties of loss and encoder architecture. We identify sufficient conditions under which embedding updates are provably orthogonal to the current embedding and hence monotonically increase its norm. Our theory yields explicit guarantees for the emergence of popularity bias in practical two-tower setups (InfoNCE loss, asymmetric two-tower architecture) and corrects a common misconception in prior works that orthogonality of the gradient alone implies norm inflation for deep encoders. Empirical studies support the theory via geometry-first investigation: configurations that satisfy these premises exhibit strictly orthogonal embedding movements and a robust statistically significant frequency–norm coupling, whereas violations of any premise break orthogonality and yield non-systematic update trajectories. The results provide theoretical grounds for popularity bias in cosine-trained two-tower models (particularly in recommender systems, though not limited to them) and show when it should be expected in production systems.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/sufficient_conditions}
+\input{sections/norm_growth_vs_popularity}
+\input{sections/experiments}
+\input{sections/conclusion}
+
+% Impact statement (required, unnumbered, does not count toward page limit)
+\section*{Impact Statement}
+This paper presents work whose goal is to advance the field of Machine
+Learning. There are many potential societal consequences of our work, none
+which we feel must be specifically highlighted here.
+
+% References
+\bibliography{references}
+\bibliographystyle{icml2026}
+
+\appendix
+\input{sections/appendix_encoders}
+\input{sections/appendix_cosine_lemma}
+\input{sections/appendix_cosine_gradient_magnitude}
+\input{sections/appendix_coupling_popularity}
+\input{sections/appendix_note_on_distributions}
+\input{sections/appendix_note_on_batch_difference}
+\input{sections/appendix_note_on_c_variability}
+
+\end{document}
+

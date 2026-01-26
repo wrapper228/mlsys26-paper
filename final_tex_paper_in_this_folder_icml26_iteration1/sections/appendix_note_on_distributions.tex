@@ -1,0 +1,59 @@
+\section{Note on Distributions}
+\label{app:note-on-distributions}
+
+This appendix formalizes the family of distributions used in the coupling argument (Appendix~\ref{app:popularity-dependence}).
+
+\subsection{Parameterized Family of Distributions}
+
+We vary the sampling probability of a single item $i$ while keeping the \emph{relative proportions} of all other items fixed. This is achieved via a \emph{residual distribution}.
+
+Let $\boldsymbol{r}$ be a fixed probability distribution over items $w \neq i$:
+\begin{equation}
+r_w > 0 \;\text{ for } w \neq i, \qquad \sum_{w \neq i} r_w = 1.
+\end{equation}
+
+For any $p_i \in (0, 1)$, define the sampling distribution:
+\begin{equation}
+\mathbb{P}^{(p_i)}\{X = w\} \,=\, \begin{cases}
+p_i, & w = i, \\
+(1 - p_i)\, r_w, & w \neq i.
+\end{cases}
+\end{equation}
+
+\textbf{Key property:} When we increase $p_i$, only the probability of item $i$ increases; other items maintain their relative proportions (determined by $\boldsymbol{r}$).
+
+\subsection{Coupling Construction}
+
+Consider a single batch slot. We use shared randomness:
+\begin{itemize}
+  \item $U \sim \mathrm{Uniform}(0,1)$: determines whether item $i$ occupies the slot;
+  \item $Z \sim \mathrm{Cat}(\boldsymbol{r})$: determines which non-$i$ item occupies the slot (if not $i$).
+\end{itemize}
+
+For two sampling probabilities $p_i' < p_i''$:
+\begin{equation}
+X^{(p)} \,=\, \begin{cases}
+ i, & U \le p, \\
+ Z, & U > p.
+\end{cases}
+\end{equation}
+
+This ensures:
+\begin{enumerate}
+  \item If $U \leq p_i'$: item $i$ appears in \emph{both} runs;
+  \item If $p_i' < U \leq p_i''$: item $i$ appears \emph{only in run$''$};
+  \item If $U > p_i''$: \emph{same} non-$i$ item $Z$ appears in both runs.
+\end{enumerate}
+
+\subsection{Connection to Main Result}
+
+The claim ``$\mathbb{E}[\|q_i^{(T)}\|^{2}]$ is nondecreasing in $p_i$'' refers to this parameterized family. Specifically, we compare runs at two parameter values $p_i' < p_i''$ from this family, holding $\boldsymbol{r}$ fixed.
+
+This formalization ensures:
+\begin{itemize}
+  \item The ``path in the probability simplex'' is well-defined;
+  \item Non-$i$ item embeddings evolve identically in coupled runs (they see identical batches when $i$ is absent);
+  \item The only source of divergence is the difference in how often item $i$ is updated.
+\end{itemize}
+
+

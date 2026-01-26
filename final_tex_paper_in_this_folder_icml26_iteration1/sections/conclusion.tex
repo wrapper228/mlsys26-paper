@@ -1,0 +1,28 @@
+\section{Conclusion}
+
+If the following five factors hold simultaneously for the item tower, then item embeddings of more popular items attain larger \emph{expected squared} norms than those of less popular items (under the sampling model formalized in Appendix~\ref{app:note-on-distributions} and the coupling argument of Appendix~\ref{app:popularity-dependence}):
+\begin{enumerate}
+  \item optimization uses SGD without momentum and without regularization (the only way to guarantee strict movement defined by equations), 
+  \item the encoder is linear in its parameters (parameter-linear),
+  \item each distinct input has a dedicated, non-shared parameter row (no overlap across inputs),
+  \item the loss gradient with respect to the encoder output (the embedding) is orthogonal to that output (e.g., cosine-based loss),
+  \item the learning rate is sufficiently large (orthogonality itself does not require this; the point is to overcome the random initialization of embeddings by ensuring sufficiently large orthogonal displacement).
+\end{enumerate}
+
+This list makes explicit how many requirements must be met so that embeddings move orthogonally, their squared norms grow monotonically, and this growth yields popularity bias. In this way, our investigation refines the takeaways of prior work by specifying exactly which factors guarantee orthogonal embedding movement. To the best of our knowledge, these aspects have not been articulated in the literature on representation learning with cosine–based objectives.
+
+An important observation is that, although these strict conditions restrict the encoder architecture for which we can provide analytic guarantees of popularity bias, modern two–tower systems contain two independent encoders. Even if one of them is a complex deep model with a complicated training dynamics, the other one — provided its architecture is sufficiently primitive — already guarantees the emergence of the phenomenon when trained with a cosine loss.
+
+Finally, our theoretical characterization revisits the academic stance on the geometry of embedding movement, also offering a structural perspective on 
+architectural design: since the identified sufficient conditions serve as the mechanism for frequency–norm coupling, violating any of them breaks the 
+mathematical guarantee of this bias. Yet, widespread designs employing simple item towers remain fully susceptible to it, which may be critical for downstream 
+ranking tasks — such as index search based on dot products — unless this property of the training process is consciously intended as desirable.
+
+Paradoxically, this implies that simpler "baseline" architectures are often the most vulnerable to this 
+phenomenon, as they perfectly satisfy these conditions. This observation is particularly relevant for the 
+iterative development of recommender systems, where practitioners typically begin with such clean baselines 
+to validate pipelines. Our analysis suggests a hidden pitfall in this standard workflow: these baselines 
+are uniquely predisposed to maximal popularity bias due to their geometric transparency. This creates a 
+risk of false negative evaluations early in the development cycle, where a project might be discarded 
+for "learning only popularity", when in fact this behavior is an optimization artifact of the baseline's 
+simplicity rather than a fundamental limitation of the data.

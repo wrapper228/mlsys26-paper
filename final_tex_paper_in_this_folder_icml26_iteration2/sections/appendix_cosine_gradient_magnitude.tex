@@ -1,0 +1,90 @@
+\section{Gradient Magnitude under Cosine-Based Loss}
+\label{app:cosine-growth-rate}
+
+\textbf{The bigger \boldmath$q$\unboldmath{}, the smaller the norm of the gradient of a cosine-based loss with respect to \boldmath$q$\unboldmath{}.}
+
+\emph{Why this matters.} This creates a counter-effect: “the larger the embedding, the slower it grows.” This effect will be used in Appendix~\ref{app:popularity-dependence} for analyzing norm growth of popular items.
+
+\medskip
+\noindent\textbf{Derivation.} We begin with the formula from Appendix~\ref{app:cos-orth-lemma}:
+\begin{equation}
+\label{eq:grad-cos-base}
+\begin{aligned}
+\nabla_{q}\,\cos(q,k)
+&= \frac{\|q\|\,\|k\|\,k - (q^{\!\top}k)\,\|k\|\,\tfrac{q}{\|q\|}}{\bigl(\|q\|\,\|k\|\bigr)^2} \\
+&= \frac{k - \tfrac{q^{\!\top}k}{\|q\|^2}\,q}{\|q\|\,\|k\|}.
+\end{aligned}
+\end{equation}
+Introduce
+\begin{equation}
+\hat q \,=\, \frac{q}{\|q\|},\qquad \hat k \,=\, \frac{k}{\|k\|}.
+\end{equation}
+Then
+\begin{equation}
+\begin{aligned}
+&\nabla_{q}\,\cos(q,k)
+= \frac{1}{\|q\|}\,\bigl(\hat k - (\hat q^{\!\top}\hat k)\,\hat q\bigr) \\
+&= \frac{1}{\|q\|}\,(I - \hat q\,\hat q^{\!\top})\,\hat k,\\ &\text{denote } P = I - \hat q\,\hat q^{\!\top}.
+\end{aligned}
+\end{equation}
+
+Consider $P$. Being a matrix, it is a linear mapping. Since it is idempotent ($P^2=P$) and symmetric ($P^{\!\top}=P$), it is not only linear but, by definition, an orthogonal projector. This projector maps any vector (on which it acts by left multiplication) to the subspace consisting of all vectors orthogonal to $q$.
+
+Now consider an arbitrary cosine-based loss
+\begin{equation}
+L(q) \,=\, F\big(\cos(q,k_1),\dots,\cos(q,k_m)\big).
+\end{equation}
+
+\noindent\textbf{1. Notation.}
+\begin{equation}
+\begin{aligned}
+c_i(q) &= \cos(q,k_i) = \frac{q^{\!\top}k_i}{\|q\|\,\|k_i\|}, \\
+\hat q &= \frac{q}{\|q\|}, \qquad \hat k_i = \frac{k_i}{\|k_i\|}, \\
+P &= I - \hat q\,\hat q^{\!\top}.
+\end{aligned}
+\end{equation}
+
+\noindent\textbf{2. Gradient of each cosine.}
+\begin{equation}
+\nabla_q c_i(q) \,=\, \frac{1}{\|q\|}\,P\,\hat k_i.
+\end{equation}
+
+\noindent\textbf{3. Chain rule.}
+\begin{equation}
+\nabla_q L(q) \,=\, \sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,\nabla_q c_i(q) \,=\, \frac{1}{\|q\|}\,\sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,P\,\hat k_i.
+\end{equation}
+
+\noindent\textbf{4. Simplification.}
+\begin{equation}
+\begin{aligned}
+\nabla_q L(q)
+&= \frac{1}{\|q\|}\,P\left( \sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,\hat k_i \right), \\
+u &= \sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,\hat k_i, \\
+\Rightarrow\; \nabla_q L(q) &= \frac{1}{\|q\|}\,P u.
+\end{aligned}
+\end{equation}
+
+\noindent\textbf{Norm of the gradient.}
+\begin{equation}
+\bigl\|\nabla_q L(q)\bigr\| \,=\, \frac{1}{\|q\|}\,\bigl\|P u\bigr\|.
+\end{equation}
+Because $P$ is an orthogonal projector ($P^{\!\top}=P$, $P^2=P$),
+\begin{equation}
+\begin{aligned}
+\bigl\|P u\bigr\|^{2} &\,=\, u^{\!\top} P u \\
+&\,=\, u^{\!\top}(I - \hat q\,\hat q^{\!\top})u \,=\, \|u\|^{2} - (\hat q^{\!\top}u)^{2}.
+\end{aligned}
+\end{equation}
+Hence,
+\begin{equation}
+\begin{aligned}
+&\boxed{\; \bigl\|\nabla_q L(q)\bigr\| \,=\, \frac{\sqrt{\|u\|^{2} - (\hat q^{\!\top}u)^{2}}}{\|q\|} \;} , \\
+&\text{where }\; u = \sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,\hat k_i, \quad c_i = \hat q^{\!\top}\hat k_i.
+\end{aligned}
+\end{equation}
+
+Here we note that, as the embedding norm grows, the gradient norm decreases:
+\begin{itemize}
+  \item the denominator is the embedding norm $\|q\|$;
+  \item the numerator does not depend on $\|q\|$: when computing $u$, $q$ appears only inside the derivative $\partial F/\partial c_i$ (through the cosines). A pure rescaling of $q$ does not change the cosines; therefore the input to $F$ does not change, and the derivatives $\partial F/\partial c_i$ do not depend on $\|q\|$.
+\end{itemize}

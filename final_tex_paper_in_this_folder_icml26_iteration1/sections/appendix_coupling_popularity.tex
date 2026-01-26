@@ -1,0 +1,95 @@
+\section{Popularity Dependence via Coupling}
+\label{app:popularity-dependence}
+
+We give a coupling argument showing that, in a clean update model that isolates the \emph{effect of sampling frequency}, the \emph{squared} embedding norm of item $i$ after $T$ training batches is nondecreasing in its sampling probability $p_i$:
+\begin{equation}
+\mathbb E\,\bigl\|q_i^{(T)}\bigr\|^{2} \;\text{ is nondecreasing in }\; p_i.
+\end{equation}
+We employ the coupling method from probability theory \cite{roch_mdp_2024}.
+
+\subsection{Setup and the update model}
+\label{app:coupling-setup}
+
+Let $s^{(t)} := \|q_i^{(t)}\|^2$ denote the squared norm of item $i$ after batch $t$.
+Under the orthogonality premises of Section~2, each time item $i$ is updated, the squared norm increases by the Pythagorean theorem:
+\begin{equation}
+s^{(t+1)} = s^{(t)} + \|\Delta q_i^{(t)}\|^2.
+\end{equation}
+For cosine-based losses, the increment admits the standard form (Appendix~\ref{app:cosine-growth-rate}):
+\begin{equation}
+\label{eq:coupling-increment}
+\|\Delta q_i^{(t)}\|^2 = \frac{c^{(t)}}{s^{(t)}}, \qquad c^{(t)} \ge 0,
+\end{equation}
+where $c^{(t)}$ is a scalar capturing the gradient-magnitude factor (see Appendix~\ref{app:note-on-c-variability}).
+In general, $c^{(t)}$ may depend on batch composition and on the current model state; therefore, a fully general, pathwise monotonicity statement is not available without additional assumptions.
+
+\paragraph{A stability assumption used for coupling.}
+To obtain a publication-safe monotone coupling, we explicitly assume that the scalar factors $\{c^{(t)}\}_{t\ge 0}$ can be coupled to be identical across different values of $p_i$:
+\begin{quote}
+\textbf{Assumption (Coupled $c$).} Consider two runs that differ only in the sampling probability of item $i$, with $p_i' < p_i''$, and share the same initialization. We assume that there exists a coupling of all randomness such that for every batch index $t$, whenever the two runs update item $i$ in batch $t$, the corresponding factor in \eqref{eq:coupling-increment} is the same: $c'^{(t)} = c''^{(t)} =: c^{(t)}$.
+\end{quote}
+This assumption isolates the popularity effect (how often $i$ is updated). It is satisfied in idealized regimes where the per-update magnitude factor is treated as exogenous or approximately stable, and it is also a conservative sufficient condition: if it fails, popularity effects may still occur, but our coupling proof below does not apply.
+
+\subsection{Coupling construction for sampling}
+\label{app:coupling-construction}
+
+Run training twice, differing only in the sampling probability of item $i$: $p_i' < p_i''$. At each batch $t$ and for every slot $b \in \{1,\dots,B\}$, draw the same random number $U_{t,b} \sim \mathrm{Uniform}(0,1)$:
+\begin{itemize}
+  \item in the run with parameter $p$, place $i$ into slot $b$ if $U_{t,b} \le p_i$;
+  \item otherwise place the same non-$i$ item in both runs (chosen using the same random generator).
+\end{itemize}
+
+This construction ensures:
+\begin{enumerate}
+  \item[(C1)] Item $i$ in run$'$ $\Rightarrow$ item $i$ in run$''$ (but not conversely);
+  \item[(C2)] Non-$i$ items are \emph{identical} in both runs when $i$ is absent from a slot;
+  \item[(C3)] Both runs start from \emph{identical initialization}: $q_i'^{(0)} = q_i''^{(0)}$.
+\end{enumerate}
+
+See Appendix~\ref{app:note-on-distributions} for the formal definition of the distribution family.
+
+\subsection{Main theorem (monotone coupling)}
+
+For each batch $t$, define $N_t^{(p)} := \sum_{b=1}^{B}\mathbf{1}\{U_{t,b} \le p\}$, the number of occurrences of item $i$ in the batch under sampling probability $p$.
+By construction, for all $t$ we have the \emph{pathwise} inequality
+\begin{equation}
+N_t^{(p_i'')} \ge N_t^{(p_i')} \quad \text{almost surely.}
+\end{equation}
+
+Under Assumption (Coupled $c$), we can write the coupled single-batch update for the squared norm as
+\begin{equation}
+\label{eq:coupling-recursion}
+s^{(t+1)} = s^{(t)} + \frac{N_t^{(p)}\,c^{(t)}}{s^{(t)}},
+\end{equation}
+where $c^{(t)} \ge 0$ is shared across the two runs.
+Define the update map $\Phi_{t,n}(s) := s + n c^{(t)}/s$ for $n \in \{0,1,\dots,B\}$.
+For any fixed $t$ and $n$, $\Phi_{t,n}(s)$ is nondecreasing in $n$ for all $s>0$, and it is nondecreasing in $s$ whenever $s \ge \sqrt{n c^{(t)}}$ because
+\(\frac{\partial}{\partial s}\Phi_{t,n}(s) = 1 - \frac{n c^{(t)}}{s^{2}} \ge 0\).
+Moreover, after any update with $n\ge 1$ we have the self-healing bound (AM--GM)
+\begin{equation}
+s^{(t+1)} \;=\; s^{(t)} + \frac{n c^{(t)}}{s^{(t)}} \;\ge\; 2\sqrt{n c^{(t)}},
+\end{equation}
+so the monotonicity region is immediately entered and remains valid for subsequent updates.
+
+\begin{theorem}[Popularity--squared-norm monotonicity under a monotone coupling]
+\label{thm:popularity-squared-norm}
+Assume the orthogonality premises of Section~2 and Assumption (Coupled $c$) above. Then for any $p_i' < p_i''$ there exists a coupling such that
+\begin{equation}
+\|q_i^{(T)}\|^{2}_{p_i''} \;\ge\; \|q_i^{(T)}\|^{2}_{p_i'} \quad \text{almost surely,}
+\end{equation}
+and in particular
+\begin{equation}
+\mathbb{E}\bigl[\|q_i^{(T)}\|^{2}\bigr]_{p_i''} \;\ge\; \mathbb{E}\bigl[\|q_i^{(T)}\|^{2}\bigr]_{p_i'}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Use the shared uniforms $\{U_{t,b}\}$ to couple the sampling, which yields $N_t^{(p_i'')} \ge N_t^{(p_i')}$ for all $t$ almost surely.
+Under Assumption (Coupled $c$), use the same sequence $\{c^{(t)}\}$ in both runs.
+Then the recursion \eqref{eq:coupling-recursion} implies that, for each batch $t$, the update is obtained by applying $\Phi_{t,N_t^{(p)}}(\cdot)$ to the current $s^{(t)}$.
+Since $\Phi_{t,n}$ is nondecreasing in $n$ and (after the first update) nondecreasing in $s$, an induction on $t$ yields $s^{(t)}_{p_i''} \ge s^{(t)}_{p_i'}$ almost surely for all $t\le T$.
+Taking expectations proves the stated monotonicity of $\mathbb E\|q_i^{(T)}\|^2$.
+\end{proof}
+\paragraph{Remark (why we do not claim more without extra assumptions).}
+If Assumption (Coupled $c$) is dropped, then even under identical sampling the factors $c^{(t)}$ may differ between runs, and a one-step reversal of the ordering is possible. This is why the theorem above is stated as a sufficient-condition mechanism that isolates the effect of sampling frequency; outside this regime, popularity effects may still hold, but require a more detailed model of $c^{(t)}$.
+

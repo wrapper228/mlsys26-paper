@@ -1,0 +1,39 @@
+\section{Note on variability of $c$}
+\label{app:note-on-c-variability}
+
+Recall the notation from Appendix~\ref{app:cosine-growth-rate}. Let
+\begin{equation}
+\begin{gathered}
+s \,=\, \|q\|^{2}, \qquad P \,=\, I - \hat q\,\hat q^{\!\top}, \\
+u \,=\, \sum_{i=1}^{m} \frac{\partial F}{\partial c_i}\,\hat k_i .
+\end{gathered}
+\end{equation}
+With a learning-rate factor $\eta$, a single-update norm increment satisfies
+\begin{equation}
+\begin{aligned}
+\Delta(s) &= \eta^{2}\,\bigl\|\nabla_q L(q)\bigr\|^{2}
+          = \frac{\eta^{2}}{s}\,\|Pu\|^{2}
+          = \frac{c}{s}, \\
+c &= \eta^{2}\,\|Pu\|^{2}.
+\end{aligned}
+\end{equation}
+
+\paragraph{Why $\boldsymbol{c}$ changes moderately (or sharply, but rarely).\\\\}
+
+\textbf{1) \boldmath$\|u_{t+1}\| \gg \|u_t\|$\unboldmath{} is a rare event:}
+
+In a convergent training process the embeddings move to their optimal positions and the ``error signals'' $\tfrac{\partial F}{\partial cos}$, if they do not decay, at least stabilize. Therefore the norm of the aggregate gradient
+\begin{equation}
+u \,=\, \sum_{i=1}^{m} \frac{\partial F}{\partial cos_i}\,\hat k_i
+\end{equation}
+cannot keep growing sharply for many steps; a persistent sharp growth of the norm of the aggregate gradient $u$ would signal a diverging training process.
+
+A sharp growth of the norm of $u$ would require all contributions $\hat k_i$ to add up co-directionally — a worst-case alignment that is statistically suppressed under random batch formation. Regardless of whether this occurs, the sum of contributions is bounded by the number of terms in the batch and by the magnitude of $\tfrac{\partial F}{\partial cos}$, whose stability follows from the argument above.
+
+\textbf{2) If this rare spike happens and temporarily yields \boldmath$s < \sqrt{c}$\unboldmath{} :}
+
+On the same step we have
+\begin{equation}
+s_{t+1} \,=\, s_t + \frac{c_t}{s_t} \;\ge\; 2\sqrt{c_t} \;\ge\; \sqrt{c_t} ,
+\end{equation}
+so we immediately re-enter the region where $\Phi'(s) \ge 0$ again. With an increased $s$, violating $\Phi'(s) \ge 0$ again becomes progressively harder.

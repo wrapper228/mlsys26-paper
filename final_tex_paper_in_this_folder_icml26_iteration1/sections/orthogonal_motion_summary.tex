@@ -1,0 +1,11 @@
+\subsection{Proposition: When Embeddings Move Orthogonally}
+
+If the encoder satisfies the following four conditions simultaneously:
+\begin{enumerate}
+  \item optimization uses SGD without momentum\footnote{Momentum accumulates past gradients, which have no reason to remain orthogonal to the current embedding.} and without regularization (the only way to guarantee strict movement defined by equations), 
+  \item the encoder is linear in its parameters (parameter-linear),
+  \item each distinct input has a dedicated, non-shared parameter row (no overlap across inputs),
+  \item the loss gradient with respect to the encoder output (the embedding) is orthogonal to that output (e.g., cosine-based loss),
+\end{enumerate}
+
+then it can be proved analytically (\ref{eq:ort-move-proof}) that, during training, the embedding moves orthogonally, i.e., tangentially to the hypersphere on which it located at the previous step.

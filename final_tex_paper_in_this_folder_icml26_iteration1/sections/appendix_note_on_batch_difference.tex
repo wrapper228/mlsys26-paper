@@ -1,0 +1,36 @@
+\section{Note on Batch Differences in Coupled Runs}
+\label{app:note-on-batch-difference}
+
+In the coupled runs described in Appendix~\ref{app:popularity-dependence}, the batches differ in ``exclusive slots'' --- slots $b$ where $p'_i < U_b \leq p''_i$.
+
+\subsection{Structure of Differences}
+
+By the coupling construction:
+\begin{itemize}
+  \item \textbf{Shared slots} ($U_b \leq p'_i$): item $i$ in both runs, identical;
+  \item \textbf{Exclusive slots} ($p'_i < U_b \leq p''_i$): item $i$ in run$''$, some item $w \neq i$ in run$'$;
+  \item \textbf{Non-$i$ slots} ($U_b > p''_i$): same non-$i$ item in both runs.
+\end{itemize}
+
+The number of exclusive slots per batch is $\mathrm{Binomial}(B, p''_i - p'_i)$ with expectation $B \cdot (p''_i - p'_i)$.
+
+\subsection{Impact on Gradient Factors}
+
+When both runs update item $i$ in the same batch, the gradient-magnitude factors $c'$ and $c''$ in \eqref{eq:coupling-increment} may differ due to:
+\begin{enumerate}
+  \item \textbf{Angular divergence:} The embeddings $q'_i$ and $q''_i$ point in slightly different directions after accumulating different update histories.
+  \item \textbf{Batch composition:} In-batch negatives differ in exclusive slots.
+\end{enumerate}
+
+Both effects are bounded:
+\begin{itemize}
+  \item Angular effect: $O(\alpha)$ where $\alpha$ is the angle between $\hat{q}'$ and $\hat{q}''$;
+  \item Batch effect: $O(|E_t| / B)$ where $|E_t|$ is the number of exclusive slots.
+\end{itemize}
+
+\subsection{Why we explicitly assume a coupled $c$ in the proof}
+
+Because the batch differs in exclusive slots, the scalar factors $c'^{(t)}$ and $c''^{(t)}$ can differ even when both runs update item $i$ in batch $t$.
+This matters: if $c''^{(t)} \ll c'^{(t)}$ on a given batch, a \emph{single-step} ordering reversal for the squared norms is possible.
+
+For publication-safe guarantees, Appendix~\ref{app:popularity-dependence} therefore states the monotonicity theorem under an explicit sufficient condition (Assumption ``Coupled $c$'') that isolates the popularity effect as ``how often item $i$ is updated''.

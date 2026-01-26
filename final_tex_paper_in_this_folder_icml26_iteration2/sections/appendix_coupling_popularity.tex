@@ -1,0 +1,51 @@
+\section{Popularity Dependence via Coupling (A Mechanism)}
+\label{app:popularity-dependence}
+
+This appendix replaces the original popularity--coupling proof with a fully explicit argument that is formally correct under the four conditions of Section~2. Because those four conditions alone do not control how update magnitudes vary with batch composition, the result below is stated as a \emph{mechanism} that isolates the contribution of sampling frequency.
+
+\paragraph{Step 1: what Section~2 gives (monotone growth per update).}
+Let $q_i^{(t)}$ denote the item embedding after batch $t$ and $s_t := \|q_i^{(t)}\|^2$.
+Under the four conditions of Section~2, the item embedding update is orthogonal to the current embedding, so by the Pythagorean theorem each update satisfies
+\begin{equation}
+s_{t+1} = s_t + \|\Delta q_i^{(t)}\|^2, \qquad \|\Delta q_i^{(t)}\|^2 \ge 0.
+\label{eq:pythagoras-per-update}
+\end{equation}
+Thus $s_t$ is nondecreasing along training whenever item $i$ is updated.
+
+\paragraph{Step 2: what sampling gives (more popular $\Rightarrow$ more updates).}
+Assume batches are formed by i.i.d.\ sampling from a fixed distribution, and item $i$ has per-slot probability $p_i$.
+With batch size $B$, the probability that item $i$ appears at least once in a batch is
+\begin{equation}
+\pi(p_i) := 1-(1-p_i)^B.
+\end{equation}
+Let $N_T^{(p)}$ be the number of batches among $t=1,\dots,T$ in which item $i$ appears at least once.
+Then
+\begin{equation}
+N_T^{(p)} \sim \mathrm{Binomial}\bigl(T,\pi(p)\bigr),
+\end{equation}
+and therefore for $p_i' < p_i''$ we can couple the two binomials so that $N_T^{(p_i'')} \ge N_T^{(p_i')}$ almost surely (standard Bernoulli coupling via shared uniforms).
+
+\paragraph{Step 3: a clean replay model that isolates popularity.}
+The squared-norm process can always be written as a sum of nonnegative increments along the \emph{update events} of item $i$.
+Define $\delta_k \ge 0$ as the squared displacement at the $k$-th update of item $i$ (i.e., $\delta_k := \|\Delta q_i\|^2$ at that update).
+Then, for any horizon $T$,
+\begin{equation}
+\|q_i^{(T)}\|^2 = \|q_i^{(0)}\|^2 + \sum_{k=1}^{N_T^{(p_i)}} \delta_k .
+\label{eq:replay-sum}
+\end{equation}
+
+In a \emph{replay model}, we treat the nonnegative sequence $\{\delta_k\}_{k\ge 1}$ as fixed and compare only the effect of changing the sampling probability $p_i$ (hence changing the random update count $N_T^{(p_i)}$).
+Let $f(n):=\|q_i^{(0)}\|^2 + \sum_{k=1}^{n}\delta_k$. Since $\delta_k\ge 0$, $f$ is nondecreasing in $n$.
+Under the monotone coupling of $N_T^{(p)}$ above, we obtain the \emph{pathwise} inequality
+\begin{equation}
+f\!\left(N_T^{(p_i'')}\right) \ge f\!\left(N_T^{(p_i')}\right)\quad\text{almost surely,}
+\end{equation}
+and therefore
+\begin{equation}
+\mathbb{E}\bigl[\|q_i^{(T)}\|^2\bigr]_{p_i''} \;\ge\; \mathbb{E}\bigl[\|q_i^{(T)}\|^2\bigr]_{p_i'}.
+\end{equation}
+
+\paragraph{Interpretation.}
+Equation \eqref{eq:replay-sum} and the coupling above formalize the popularity mechanism that is guaranteed by Section~2: popularity increases how often an item is updated, and orthogonality ensures each update contributes a nonnegative radial increment to $\|q_i\|^2$.
+To turn this mechanism into an unconditional statement about the full SGD dynamics without fixing the sequence $\{\delta_k\}$, one needs additional control of how update magnitudes depend on the training trajectory; this lies outside the four assumptions of Section~2 and is therefore not claimed here.
+
