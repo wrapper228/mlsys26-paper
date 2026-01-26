@@ -28,9 +28,9 @@ I_d, & x_i = x_j, \\
 \end{align}
 If $c_i$ denotes the number of occurrences of $x_i$ in the batch, substituting \eqref{eq:JJ-embed} into \eqref{eq:collinearity-master} yields
 \begin{align}
-\Delta q_i \,=\, -\eta\,c_i\,g_i.
+\Delta q_i \,=\, -\eta\,\sum_{j:\,x_j=x_i} g_j \,=\, -\eta\,c_i\,\bar g_i,
 \end{align}
-Hence the update is strictly collinear with $g_i$.
+where $\bar g_i := \frac{1}{c_i}\sum_{j:\,x_j=x_i} g_j$. Hence the update is strictly collinear with the (batch-aggregated) gradient direction $\bar g_i$.
 
 \paragraph{Single linear layer without bias.}
 For a single linear layer (Appendix~\ref{app:linear}),
@@ -39,13 +39,13 @@ J_{i}J_{j}^{\!\top} \,=\, (x_i^{\!\top} x_j)\, I_d. \label{eq:JJ-linear}
 \end{align}
 Therefore,
 \begin{align}
-\Delta q_i \,=\, -\eta\,c_i\,\|x_i\|^2\,g_i -\; \eta\,\sum_{j\neq i}(x_i^{\!\top}x_j)\,g_j
+\Delta q_i \,=\, -\eta\,\|x_i\|^2 \sum_{j:\,x_j=x_i} g_j \;-\; \eta\,\sum_{j:\,x_j\neq x_i}(x_i^{\!\top}x_j)\,g_j
 \end{align}
 If the distinct inputs are pairwise orthogonal (e.g., one-hot features or, more generally, $x_i^{\!\top}x_j=0$ for $i\neq j$), the cross-terms vanish and the self-terms aggregate over the $c_i$ occurrences of $x_i$ in the batch,
 \begin{align}
-\Delta q_i \,=\, -\eta\,c_i\,\|x_i\|^2\,g_i,
+\Delta q_i \,=\, -\eta\,\|x_i\|^2 \sum_{j:\,x_j=x_i} g_j \,=\, -\eta\,c_i\,\|x_i\|^2\,\bar g_i,
 \end{align}
-which is again collinear with $g_i$.
+which is again collinear with $\bar g_i$.
 
 These cases illustrate a general principle: whenever $J_{i}J_{j}^{\!\top}$ is diagonal in the sense of \(J_{i}J_{j}^{\!\top} = \alpha_{ij} I_d\) with $\alpha_{ij}=0$ for $j\neq i$, the embedding update aligns with the output gradient. In particular, with one-hot features (orthogonal inputs), a bias-free linear layer and an embedding lookup are equivalent mappings up to implementation (matrix multiplication versus table lookup).
 

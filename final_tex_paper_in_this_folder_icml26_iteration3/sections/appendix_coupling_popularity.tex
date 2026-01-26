@@ -3,6 +3,10 @@
 
 This appendix replaces the original popularity--coupling proof with a fully explicit argument that is formally correct under the four conditions of Section~2. Because those four conditions alone do not control how update magnitudes vary with batch composition, the result below is stated as a \emph{mechanism} that isolates the contribution of sampling frequency.
 
+\begin{quote}
+\textbf{Definition (Replay model).} Fix an item identity $i$. Consider any training run and let $N_T$ be the number of \emph{update events} for item $i$ up to time $T$. For each update event $k\in\{1,\dots,N_T\}$ define $\delta_k := \|\Delta q_i\|^2$, the squared displacement of the item embedding at that update. The \emph{replay model} treats the nonnegative sequence $\{\delta_k\}_{k\ge 1}$ as fixed (non-random) and compares only the effect of varying the sampling frequency (hence the update count $N_T$). We do \emph{not} claim that $\{\delta_k\}$ is invariant under changing the training sampling policy in full SGD dynamics.
+\end{quote}
+
 \paragraph{Step 1: what Section~2 gives (monotone growth per update).}
 Let $q_i^{(t)}$ denote the item embedding after batch $t$ and $s_t := \|q_i^{(t)}\|^2$.
 Under the four conditions of Section~2, the item embedding update is orthogonal to the current embedding, so by the Pythagorean theorem each update satisfies
@@ -13,7 +17,7 @@ s_{t+1} = s_t + \|\Delta q_i^{(t)}\|^2, \qquad \|\Delta q_i^{(t)}\|^2 \ge 0.
 Thus $s_t$ is nondecreasing along training whenever item $i$ is updated.
 
 \paragraph{Step 2: what sampling gives (more popular $\Rightarrow$ more updates).}
-Assume batches are formed by i.i.d.\ sampling from a fixed distribution, and item $i$ has per-slot probability $p_i$.
+Assume batches are formed by i.i.d.\ sampling \emph{with replacement} from a fixed distribution (independent slots within a batch and independent batches over time), and item $i$ has per-slot probability $p_i$.
 With batch size $B$, the probability that item $i$ appears at least once in a batch is
 \begin{equation}
 \pi(p_i) := 1-(1-p_i)^B.
@@ -26,7 +30,9 @@ N_T^{(p)} \sim \mathrm{Binomial}\bigl(T,\pi(p)\bigr),
 and therefore for $p_i' < p_i''$ we can couple the two binomials so that $N_T^{(p_i'')} \ge N_T^{(p_i')}$ almost surely (standard Bernoulli coupling via shared uniforms).
 
 \paragraph{Step 3: a clean replay model that isolates popularity.}
-The squared-norm process can always be written as a sum of nonnegative increments along the \emph{update events} of item $i$.
+Here an \emph{update event} refers to a batch in which item $i$ appears at least once and therefore receives an update from that batch's SGD step. A batch may contain multiple occurrences (duplicates) of item $i$; their combined effect is captured by the single-step squared displacement $\delta_k=\|\Delta q_i\|^2$ for that batch, so we do not assume ``one occurrence per batch''.
+
+The squared-norm process can always be written as a sum of nonnegative increments along the update events of item $i$.
 Define $\delta_k \ge 0$ as the squared displacement at the $k$-th update of item $i$ (i.e., $\delta_k := \|\Delta q_i\|^2$ at that update).
 Then, for any horizon $T$,
 \begin{equation}
