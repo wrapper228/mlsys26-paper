@@ -1,6 +1,6 @@
 \section{Conclusion}
 
-If the following five factors hold simultaneously for the item tower, then item embeddings move orthogonally, their norms grow monotonically with updates, and a frequency--norm mechanism for popularity bias is induced (Appendix~\ref{app:popularity-dependence}):
+If the following five factors hold simultaneously for the item tower, then item embeddings move orthogonally, their norms grow monotonically with updates, and a frequency--norm mechanism (conditional on per-update increments) for popularity bias is induced (Appendix~\ref{app:popularity-dependence}):
 \begin{enumerate}
   \item optimization uses SGD without momentum and without regularization (the only way to guarantee strict movement defined by equations), 
   \item the encoder is linear in its parameters (parameter-linear),

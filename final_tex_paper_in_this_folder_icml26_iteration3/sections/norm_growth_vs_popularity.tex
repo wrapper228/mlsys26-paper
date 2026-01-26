@@ -7,7 +7,7 @@ Throughout this section (as well as corresponding appendices) we assume the four
 \bigl\|q_i^{(t+1)}\bigr\|^{2} - \bigl\|q_i^{(t)}\bigr\|^{2} \;=\; \bigl\|\Delta q_i^{(t)}\bigr\|^{2}.
 \end{equation}
 
-Finally, we analyze the dependence of the embedding-norm growth on item popularity. Appendix~\ref{app:popularity-dependence} formalizes a clean coupling \emph{mechanism} that isolates the effect of sampling probability and proves that, in a replay model, the expected \emph{squared} norm after $T$ batches is nondecreasing in the item's sampling probability.
+Finally, we analyze the dependence of the embedding-norm growth on item popularity. Appendix~\ref{app:popularity-dependence} formalizes a clean coupling \emph{mechanism} that isolates the effect of sampling probability and proves that, conditional on per-update increments, the expected \emph{squared} norm after $T$ batches is nondecreasing in the item's sampling probability.
 
 \paragraph{Takeaway.} This section and Appendix~\ref{app:popularity-dependence} provide a formal mechanism for popularity bias: under the four assumptions of Section~2, each update contributes a nonnegative radial increment to $\|q_i\|^2$, and more frequent sampling increases how often those increments are accumulated.
 To observe a statistically significant popularity bias in practice, an additional (fifth) factor is required; it will be discussed in the next section.
