@@ -12,7 +12,9 @@ The analysis also delineates the limits of claims that ``gradient orthogonality 
     \item \textbf{Explanation of sufficient conditions for orthogonality of embedding updates.} We prove that 
     embeddings move orthogonally under the following premises: (A1) the item side is optimized by 
     SGD without regularization and momentum; (A2) the item encoder is linear in its parameters; 
-    (A3) per-item parameters are not shared (lookup-equivalent\footnote{\emph{Lookup-equivalent} means: embedding lookup (or one-hot $\to$ Linear) with no extra coordinate mixing or non-uniform scaling.}); and (A4) the loss depends on the item only via cosine. 
+    (A3) the item encoder is lookup-equivalent
+    \footnote{\emph{Lookup-equivalent} encoder will be defined later in Section~\ref{sec:lookup-equivalent}.}
+    ; and (A4) the loss depends on the item only via cosine. 
     Orthogonality breaks if any premise is violated.
     \item \textbf{Explanation of why orthogonality of embedding updates implies popularity bias.} We prove a formal mechanism (conditional on per-update increments) linking sampling frequency to norm growth and demonstrate that this geometric artifact translates directly into popularity biased retrieval outcomes.
     \item \textbf{Clarification of prior claims in the literature.} We re-examine claims from studies on similar 

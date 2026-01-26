@@ -1,7 +1,7 @@
 \section{Embedding-Norm Is Monotonic in Item Popularity}
 \label{sec:norm-monotonicity}
 
-Throughout this section (as well as corresponding appendices) we assume the four conditions from Section~2 hold (SGD without momentum/regularization; parameter-linear encoder; lookup-equivalent non-shared parameter rows; cosine-loss gradient orthogonal to the output). Under these assumptions the embedding moves orthogonally at each update. By the Pythagorean theorem,
+Throughout this section (as well as corresponding appendices) we assume the four conditions from Section~2 hold (SGD without momentum/regularization; parameter-linear encoder; lookup-equivalent encoder; cosine-loss gradient orthogonal to the output). Under these assumptions the embedding moves orthogonally at each update. By the Pythagorean theorem,
 \begin{equation}
 \label{eq:pythagoras-increment}
 \bigl\|q_i^{(t+1)}\bigr\|^{2} - \bigl\|q_i^{(t)}\bigr\|^{2} \;=\; \bigl\|\Delta q_i^{(t)}\bigr\|^{2}.

@@ -1,7 +1,7 @@
-\section{Popularity Dependence via Coupling (A Mechanism)}
+\section{Popularity Dependence via Coupling}
 \label{app:popularity-dependence}
 
-This appendix replaces the original popularity--coupling proof with a fully explicit argument that is formally correct under the four conditions of Section~2. Because those four conditions alone do not control how update magnitudes vary with batch composition, the result below is stated as a \emph{mechanism} that isolates the contribution of sampling frequency.
+Because the four conditions of Section~2 alone do not control how update magnitudes vary with batch composition, the result below is stated as a \emph{mechanism} that isolates the contribution of sampling frequency.
 
 \begin{quote}
 \textbf{Definition (Conditional-on-increments model).} Fix an item identity $i$. Consider any training run and let $N_T$ be the number of \emph{update events} for item $i$ up to time $T$. For each update event $k\in\{1,\dots,N_T\}$ define $\delta_k := \|\Delta q_i\|^2$, the squared displacement of the item embedding at that update. The \emph{conditional-on-increments model} treats the nonnegative sequence $\{\delta_k\}_{k\ge 1}$ as fixed (non-random) and compares only the effect of varying the sampling frequency (hence the update count $N_T$). We do \emph{not} claim that $\{\delta_k\}$ is invariant under changing the training sampling policy in full SGD dynamics.

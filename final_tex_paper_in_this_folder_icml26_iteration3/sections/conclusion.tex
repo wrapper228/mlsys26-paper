@@ -4,7 +4,7 @@ If the following five factors hold simultaneously for the item tower, then item 
 \begin{enumerate}
   \item optimization uses SGD without momentum and without regularization (the only way to guarantee strict movement defined by equations), 
   \item the encoder is linear in its parameters (parameter-linear),
-  \item each distinct input has a dedicated, non-shared parameter row (lookup-equivalent),
+  \item the encoder is lookup-equivalent,
   \item the loss gradient with respect to the encoder output (the embedding) is orthogonal to that output (e.g., cosine-based loss),
   \item the learning rate is sufficiently large (orthogonality itself does not require this; the point is to overcome the random initialization of embeddings by ensuring sufficiently large orthogonal displacement).
 \end{enumerate}
