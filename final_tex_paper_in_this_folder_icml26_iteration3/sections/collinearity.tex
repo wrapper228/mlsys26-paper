@@ -41,7 +41,7 @@ Therefore,
 \begin{align}
 \Delta q_i \,=\, -\eta\,\|x_i\|^2 \sum_{j:\,x_j=x_i} g_j \;-\; \eta\,\sum_{j:\,x_j\neq x_i}(x_i^{\!\top}x_j)\,g_j
 \end{align}
-If the distinct inputs are pairwise orthogonal (e.g., one-hot features or, more generally, $x_i^{\!\top}x_j=0$ whenever $x_i \neq x_j$), the cross-terms vanish and the self-terms aggregate over the $c_i$ occurrences of $x_i$ in the batch,
+If the distinct inputs are pairwise orthogonal (e.g., one-hot features or, more generally, $x_i^{\!\top}x_j=0$ for $x_i \neq x_j$), the cross-terms vanish and the self-terms aggregate over the $c_i$ occurrences of $x_i$ in the batch,
 \begin{align}
 \Delta q_i \,=\, -\eta\,\|x_i\|^2 \sum_{j:\,x_j=x_i} g_j \,=\, -\eta\,c_i\,\|x_i\|^2\,\bar g_i,
 \end{align}
